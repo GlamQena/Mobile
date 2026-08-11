@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import 'public/app_colors.dart';
 import 'custom_widgets/gradient_button.dart';
-import 'pages/Authentication/Login.dart';
-import 'pages/Authentication/Register.dart';
-import 'pages/Authentication/VerifyEmail.dart';
+
+// Authentication screens
+import 'pages/authentication/login.dart';
+import 'pages/authentication/register.dart';
+import 'pages/authentication/forget_password.dart';
+import 'pages/authentication/reset_password.dart';
+import 'pages/authentication/verify_otp.dart';
+import 'pages/authentication/verify_email.dart';
+
+// Client dashboard screens
+import 'pages/client_dashboard/profile.dart';
+import 'pages/client_dashboard/stores.dart';
+import 'pages/client_dashboard/cart.dart';
+import 'pages/client_dashboard/orders.dart';
+import 'pages/client_dashboard/wishlist.dart';
+import 'pages/client_dashboard/store_products.dart';
+import 'pages/client_dashboard/product_details.dart';
+import 'pages/client_dashboard/billing.dart';
+import 'pages/client_dashboard/order_details.dart';
 
 
 void main() {
@@ -44,7 +60,7 @@ class MyAppState extends State<MyApp>{
 
               IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, "cart");
+                  Navigator.pushNamed(context, "/cart");
                 },
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -71,15 +87,24 @@ class MyAppState extends State<MyApp>{
           ),
         ),
         routes: {
-          "Login": (context) => Login(),
-          "Register": (context) => Register(),
-          "Profile": (context) => Profile(),
-          "Cart": (context) => Cart(),
-          "Stores.dart": (context) => Stores(),
-          "Wishlist": (context) => Wishlist(),
-          "Orders": (context) => Orders(),
+                  '/login': (context) => Login(),
+                  '/register': (context) => Register(),
+                  '/forget_password': (context) => ForgetPassword(),
+                  '/reset_password': (context) => ResetPassword(),
+                  '/verify_otp': (context) => VerifyOTP(),
+                  '/verify_email': (context) => VerifyEmail(),
 
-        }
+                  '/profile': (context) => Profile(),
+                  '/cart': (context) => Cart(),
+                  '/stores': (context) => Stores(),
+                  '/wishlist': (context) => Wishlist(),
+                  '/orders': (context) => Orders(),
+                  '/store_products': (context) => StoreProducts(),
+                  '/product_details': (context) => ProductDetails(),
+                  '/billing': (context) => Billing(),
+                  '/order_details': (context) => OrderDetails(),
+
+                }
     );
   }
 }
