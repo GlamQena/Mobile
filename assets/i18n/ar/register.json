@@ -1,0 +1,29 @@
+{
+  "register": {
+    "title": "مرحبًا بك في Glam Qena",
+    "subtitle": "اختبر الجمال والفخامة. انضم إلى مجتمعنا الحصري اليوم.",
+    "username_label": "اسم المستخدم",
+    "username_placeholder": "johndoe_qena",
+    "email_label": "البريد الإلكتروني",
+    "email_placeholder": "name@example.com",
+    "phone_label": "رقم الهاتف",
+    "phone_placeholder": "+20 123 456 789",
+    "dob_label": "تاريخ الميلاد",
+    "dob_placeholder": "mm/dd/yyyy",
+    "gender_label": "الجنس",
+    "gender_male": "ذكر",
+    "gender_female": "أنثى",
+    "address_title": "تفاصيل العنوان",
+    "city_label": "المدينة",
+    "area_label": "المنطقة",
+    "street_label": "الشارع",
+    "street_placeholder": "اسم الشارع / الرقم",
+    "password_label": "كلمة المرور",
+    "password_placeholder": "••••••••",
+    "confirm_password_label": "تأكيد كلمة المرور",
+    "confirm_password_placeholder": "••••••••",
+    "create_account_button": "إنشاء حساب جديد",
+    "have_account": "هل لديك حساب بالفعل؟",
+    "log_in_link": "تسجيل الدخول"
+  }
+}

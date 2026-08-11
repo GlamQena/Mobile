@@ -1,0 +1,12 @@
+{
+  "drawer": {
+    "app_title": "Glam Qena",
+    "stores": "Stores",
+    "login": "Login",
+    "register": "Register",
+    "member_area": "MEMBER AREA",
+    "orders": "Orders",
+    "wishlist": "Wishlist",
+    "profile": "Profile"
+  }
+}

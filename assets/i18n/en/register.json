@@ -1,0 +1,29 @@
+{
+  "register": {
+    "title": "Welcome to Glam Qena",
+    "subtitle": "Experience beauty and luxury. Join our exclusive community today.",
+    "username_label": "Username",
+    "username_placeholder": "johndoe_qena",
+    "email_label": "Email Address",
+    "email_placeholder": "name@example.com",
+    "phone_label": "Phone Number",
+    "phone_placeholder": "+20 123 456 789",
+    "dob_label": "Date of Birth",
+    "dob_placeholder": "mm/dd/yyyy",
+    "gender_label": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "address_title": "ADDRESS DETAILS",
+    "city_label": "City",
+    "area_label": "Area",
+    "street_label": "Street",
+    "street_placeholder": "Street name / Number",
+    "password_label": "Password",
+    "password_placeholder": "••••••••",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placeholder": "••••••••",
+    "create_account_button": "Create New Account",
+    "have_account": "Already have an account?",
+    "log_in_link": "Log In"
+  }
+}
