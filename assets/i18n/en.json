@@ -1,4 +1,27 @@
 {
+  "drawer": {
+    "app_title": "Glam Qena",
+    "stores": "Stores",
+    "login": "Login",
+    "register": "Register",
+    "member_area": "MEMBER AREA",
+    "orders": "Orders",
+    "wishlist": "Wishlist",
+    "profile": "Profile"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Log in to your account to continue",
+    "username_label": "Username or Email",
+    "username_placeholder": "Enter your email",
+    "password_label": "Password",
+    "password_placeholder": "Enter password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot Password?",
+    "login_button": "Log In",
+    "no_account": "Don't have an account?",
+    "sign_up": "Sign Up"
+  },
   "register": {
     "title": "Welcome to Glam Qena",
     "subtitle": "Experience beauty and luxury. Join our exclusive community today.",
