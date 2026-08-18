@@ -93,25 +93,30 @@ class AppColors {
     Color(0xFF8E1FA0),
   ]; //dark buttons gradient
 
-  // ---------- Background Glows ----------
-  static const RadialGradient darkBackgroundGradient = RadialGradient(
-    center: Alignment.topRight, // Origin point: Top Right
-    radius: 1.2, // How wide the glow spreads. 1.0 means it fills the screen, 1.2 pushes it slightly further out.
+// ---------- Background Glows ----------
+
+  /// Dark mode background gradient (Linear works great here)
+  static final Gradient darkBackgroundGradient = LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.bottomCenter,
     colors: [
-      Color(0xFF5A1187), // Bright purple glow (AppColors.primaryShades[1])
-      Color(0xFF141214), // Deep neutral dark (AppColors.neutralShades[0])
+      primaryShades[1], // Deep purple top-right accent
+      neutralShades[0], // Base dark center
+      primaryShades[0], // Subtle dark purple bottom accent
     ],
-    stops: [0.1, 0.9], // 0.1 = Glow starts immediately, 0.9 = Fades into dark near the bottom
+    stops: const [0.0, 0.5, 1.0],
   );
 
-  static const RadialGradient lightBackgroundGradient = RadialGradient(
-    center: Alignment.topLeft, // Origin point: Top Left
-    radius: 1.2,
+  /// Light mode background gradient (Mirroring dark mode's spread technique)
+  static final Gradient lightBackgroundGradient = LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.bottomCenter,
     colors: [
-      Color(0xFFFACCE6), // Light pink glow (AppColors.secondaryShades[7])
-      Colors.white,      // Pure white
+      secondaryShades[8], // Color(0xFFFDEAF3) - Soft pink tint top-right
+      AppColorsLight.background, // Base clean white center (0xFFFFFFFF)
+      primaryShades[8],   // Color(0xFFF9E7FD) - Soft purple tint bottom
     ],
-    stops: [0.1, 0.9],
+    stops: const [0.0, 0.5, 1.0],
   );
 }
 
@@ -140,8 +145,14 @@ class AppColorsDark {
   // USED FOR: Placeholder text, input prefix/suffix icons, and secondary labels.
   static const Color textSecondary = Color(0xFFB8B2BB);
 
-  // USED FOR: Muted/Sidebar bottom links (Settings, About, Logout) and disabled UI elements.
+  // USED FOR: Muted/Sidebar bottom links (Profile, Orders, Wishlist, Logout) and disabled UI elements.
   static const Color textMuted = Color(0xFF6E6771);
+
+  // USED FOR: Red asterisk (*), error message text, and invalid input borders.
+  static const Color error = Color(0xFFF87171);
+
+  // USED FOR: "Forgot Password?" links, and clickable navigational text.
+  static const Color link = Color(0xFFF690C6);
 
   // USED FOR: Active Sidebar Item background. Uses the Brand Gradient.
   static const LinearGradient sidebarActiveGradient = LinearGradient(
@@ -180,7 +191,7 @@ class AppColorsLight {
   static const Color textMuted = Color(0xFFC9C1CE);
 
   // USED FOR: Red asterisk (*), error message text, and invalid input borders.
-  static const Color requiredAsterisk = Color(0xFFE85D75);
+  static const Color error = Color(0xFFE85D75);
 
   // USED FOR: "Forgot Password?" links, and clickable navigational text.
   static const Color link = Color(0xFFC74292);
@@ -222,21 +233,41 @@ ThemeData buildVibrantLuminaDarkTheme() {
       fillColor: AppColorsDark.surfaceVariant,
       hintStyle: const TextStyle(color: AppColorsDark.textSecondary),
       labelStyle: const TextStyle(color: AppColorsDark.textSecondary),
+
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColorsDark.border),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColorsDark.border,
+          width: 0.7,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColorsDark.border),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColorsDark.border,
+          width: 0.7,
+        ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColors.primary,
+          width: 1.5,
+        ),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.error),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColors.error,
+          width: 0.7,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColors.error,
+          width: 0.7,
+        ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -265,12 +296,12 @@ ThemeData buildVibrantLuminaLightTheme() {
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColorsLight.background,
     colorScheme: const ColorScheme.light(
-      primary: AppColors.primary,
-      secondary: AppColors.secondary,
+      primary: AppColors.secondary,
+      secondary: AppColors.primary,
       tertiary: AppColors.tertiary,
       surface: AppColorsLight.surface,
       surfaceContainerHighest: AppColorsLight.surfaceVariant,
-      error: AppColorsLight.requiredAsterisk,
+      error: AppColorsLight.error,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: AppColorsLight.textPrimary,
@@ -286,21 +317,41 @@ ThemeData buildVibrantLuminaLightTheme() {
       fillColor: AppColorsLight.surfaceVariant,
       hintStyle: const TextStyle(color: AppColorsLight.textSecondary),
       labelStyle: const TextStyle(color: AppColorsLight.textSecondary),
+
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColorsLight.border),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColorsLight.border,
+          width: 0.7,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColorsLight.border),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColorsLight.border,
+          width: 0.7,
+        ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColors.primary,
+          width: 1.5,
+        ),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColorsLight.requiredAsterisk),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColorsLight.error,
+          width: 0.7,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColorsLight.error,
+          width: 0.7,
+        ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

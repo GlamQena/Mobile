@@ -18,29 +18,99 @@
   "login_login_button": "Log In",
   "login_no_account": "Don't have an account?",
   "login_sign_up": "Sign Up",
+
   "register_title": "Welcome to Glam Qena",
-  "register_subtitle": "Experience beauty and luxury. Join our exclusive community today.",
+  "register_subtitle": "Please fill in the details below to create your account",
+
   "register_username_label": "Username",
-  "register_username_placeholder": "johndoe_qena",
+  "register_username_placeholder": "john_doe2",
+  "register_username_required": "Username is required",
+  "register_username_format": "Unsupported username",
+  "register_username_helper": "Allow only lowercase letters, numbers and underscores",
+  "register_username_max_length": "Username cannot exceed 64 characters",
+
   "register_email_label": "Email Address",
   "register_email_placeholder": "name@example.com",
+  "register_email_helper": "We'll send you a verification email to this address",
+  "register_email_required": "Email is required",
+  "register_email_format": "Invalid email format",
+  "register_email_max_length": "Email cannot exceed 254 characters",
+
   "register_phone_label": "Phone Number",
-  "register_phone_placeholder": "+20 123 456 789",
+  "register_phone_placeholder": "0123456789",
+  "register_phone_helper": "11 digits starting with 010, 011, 012, or 015",
+  "register_phone_format": "Invalid Egyptian phone number",
+
   "register_dob_label": "Date of Birth",
-  "register_dob_placeholder": "mm/dd/yyyy",
+  "register_dob_placeholder": "DD/MM/YYYY",
+  "register_dob_helper": "e.g., 31/12/1990",
+  "register_dob_format": "Enter date in DD/MM/YYYY format",
+  "register_dob_validation": "Please enter a valid date",
+  "register_dob_future": "Date of birth cannot be in the future",
+
   "register_gender_label": "Gender",
   "register_gender_male": "Male",
   "register_gender_female": "Female",
+
   "register_address_title": "ADDRESS DETAILS",
   "register_city_label": "City",
   "register_area_label": "Area",
   "register_street_label": "Street",
   "register_street_placeholder": "Street name / Number",
+
   "register_password_label": "Password",
   "register_password_placeholder": "••••••••",
+  "register_password_helper": "Password must be 8-64 characters with uppercase, lowercase, and a number",
+  "register_password_required": "Password is required",
+  "register_password_min_length": "Password must be at least 8 characters",
+  "register_password_max_length": "Password cannot exceed 64 characters",
+  "register_password_uppercase": "Password must contain at least one uppercase letter (A-Z)",
+  "register_password_lowercase": "Password must contain at least one lowercase letter (a-z)",
+  "register_password_digit": "Password must contain at least one number (0-9)",
+
   "register_confirm_password_label": "Confirm Password",
   "register_confirm_password_placeholder": "••••••••",
+  "register_confirm_password_required": "Please confirm your password",
+  "register_confirm_password_match": "Passwords do not match",
+
   "register_create_account_button": "Create New Account",
   "register_have_account": "Already have an account?",
-  "register_log_in_link": "Log In"
+  "register_log_in_link": "Log In",
+
+  "register_success_verification": "Verification link sent to your email to activate your account!",
+  "register_success_cart_merged": "Account created successfully! Your guest cart has been merged with your new account. Verification link sent to your email.",
+  "register_success_default": "Account created successfully! Please check your email for verification.",
+
+  "register_error_username_required": "Username is required.",
+  "register_error_username_min": "Username must be at least 3 characters.",
+  "register_error_username_max": "Username must be at most 64 characters.",
+  "register_error_username_format": "Username can only contain lowercase letters, numbers, and underscores.",
+  "register_error_username_email_exists": "Username or email already exists. Please try another.",
+
+  "register_error_email_required": "Email is required.",
+  "register_error_email_format": "Please enter a valid email address.",
+  "register_error_email_max": "Email must be at most 254 characters.",
+
+  "register_error_password_required": "Password is required.",
+  "register_error_password_min": "Password must be at least 8 characters.",
+  "register_error_password_max": "Password must be at most 64 characters.",
+  "register_error_password_uppercase": "Password must contain at least one uppercase letter (A-Z).",
+  "register_error_password_lowercase": "Password must contain at least one lowercase letter (a-z).",
+  "register_error_password_digit": "Password must contain at least one number (0-9).",
+  "register_error_password_match": "Passwords do not match.",
+
+  "register_error_phone_format": "Invalid Egyptian phone number. Must start with 010, 011, 012, or 015.",
+
+  "register_error_role_required": "Account type is required.",
+  "register_error_role_invalid": "Invalid account type.",
+
+  "register_error_gender_invalid": "Please select a valid gender.",
+
+  "register_error_city_max": "City must be at most 50 characters.",
+  "register_error_district_max": "District must be at most 50 characters.",
+  "register_error_street_max": "Street must be at most 100 characters.",
+
+  "register_error_account_not_created": "Account could not be created. Please try again.",
+  "register_error_server": "Server error. Please try again later.",
+  "register_error_default": "Registration failed. Please try again."
 }

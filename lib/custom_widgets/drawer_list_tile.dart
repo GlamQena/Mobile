@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../public/app_colors.dart';
 
 class  DrawerListTile extends StatelessWidget {
@@ -15,21 +14,44 @@ class  DrawerListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      dense: true,
-      leading: icon,
-      title: Text(title, style: TextStyle(
-          color: titleColor ?? (isDarkMode? isSelected ? Colors.white : AppColorsDark.textPrimary : isSelected  ? Colors.white :AppColorsLight.textPrimary),
-          fontSize: 15,
-          fontWeight: FontWeight.w400
-      )),
-      selectedTileColor: isDarkMode? AppColors.primary : AppColors.primary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      minLeadingWidth: 0,
-      selected: isSelected ,
-      enabled: enabled ?? true,
-      splashColor: Colors.transparent,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: isSelected ?
+          isDarkMode? AppColorsDark.sidebarActiveGradient : AppColorsLight.sidebarActiveGradient :
+          LinearGradient(colors: [Colors.transparent, Colors.transparent], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+            ),
+            child: ListTile(
+              onTap: onTap,
+              dense: true,
+              leading: icon,
+              title: Text(title, style: TextStyle(
+                  color: titleColor ?? (isDarkMode? isSelected ? Colors.white : AppColorsDark.textPrimary : isSelected  ? Colors.white :AppColorsLight.textPrimary),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400
+              )),
+              minLeadingWidth: 0,
+              enabled: enabled ?? true,
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

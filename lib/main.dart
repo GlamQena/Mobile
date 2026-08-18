@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'custom_widgets/drawer_list_tile.dart';
 import 'public/app_colors.dart';
-import 'custom_widgets/gradient_button.dart';
+import 'package:get_storage/get_storage.dart';
 
 // Authentication screens
 import 'pages/authentication/login.dart';
@@ -27,17 +27,19 @@ import 'pages/client_dashboard/order_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await _configureSystemUI();
-
+  await GetStorage.init();
   await EasyLocalization.ensureInitialized();
+
+  final storage = GetStorage();
+  final String preferredLang = storage.read("lang") ?? "ar";
 
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale("ar"), Locale("en")],
       path: "assets/i18n",
+      startLocale: Locale(preferredLang),
       fallbackLocale: const Locale("ar"),
-      startLocale: const Locale("ar"),
       useOnlyLangCode: true,
       saveLocale: false,
       child: const MyApp(),
@@ -62,23 +64,26 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  bool isDarkMode = false;
+  final storage = GetStorage();
+  bool isDarkMode = true;
   late bool isArabic;
   String selectedDrawerTile = "login";
 
-  // ✅ Global key for the navigator
+  // Global key for the navigator
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
     super.initState();
+    isDarkMode = storage.read("theme") ?? true;
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     isArabic = context.locale.languageCode == "ar";
-  }
+  } //instead of initialize in the initState where the state object context inherited widgets and dependencies won't be built yet, so context.Locale can't be accessed
+  //fire after the initState state life-cycle method and after any custom inherited widget or dependencies (mediaQuery, orientation, locale, theme, ...) change
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,7 @@ class MyAppState extends State<MyApp> {
       home: _buildMainScaffold(Login()),
       routes: {
         '/login': (context) => _buildMainScaffold(Login()),
-        '/register': (context) => _buildMainScaffold(Register()),
+        '/register': (context) => _buildMainScaffold(Register(isDarkMode: isDarkMode, selectedDrawerTile: selectedDrawerTile,)),
         '/forget_password': (context) => _buildMainScaffold(ForgetPassword()),
         '/reset_password': (context) => _buildMainScaffold(ResetPassword()),
         '/verify_otp': (context) => _buildMainScaffold(VerifyOTP()),
@@ -114,7 +119,30 @@ class MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: _buildAppBar(),
       drawer: _buildDrawer(context),
-      body: body,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: isDarkMode ? AppColorsDark.background : AppColorsLight.background,
+        child: Stack(
+          children: [
+            // Full-screen background gradient matching both light and dark modes
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: isDarkMode
+                      ? AppColors.darkBackgroundGradient
+                      : AppColors.lightBackgroundGradient,
+                ),
+              ),
+            ),
+
+            // Main Content
+            Positioned.fill(
+              child: Center(child: body),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -130,7 +158,7 @@ class MyAppState extends State<MyApp> {
             child: Text(
               'drawer_app_title'.tr(),
               style: TextStyle(
-                color: AppColors.primary,
+                color: isDarkMode ? AppColors.primary : AppColors.secondary,
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
               ),
@@ -139,19 +167,19 @@ class MyAppState extends State<MyApp> {
         }
       ),
       titleSpacing: 0,
-      backgroundColor: isDarkMode ? AppColorsDark.background : AppColorsLight.background,
+      backgroundColor: isDarkMode ? AppColorsDark.surface : AppColorsLight.surface,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness: isDarkMode ? Brightness.dark : Brightness.light,
         statusBarBrightness: isDarkMode ? Brightness.dark : Brightness.light,
       ),
       actionsPadding: const EdgeInsets.only(right: 3),
       iconTheme: IconThemeData(
-        color: AppColors.primary,
+        color: isDarkMode ? AppColors.primary : AppColors.secondary,
         size: 20,
       ),
-      actionsIconTheme: const IconThemeData(
-        color: AppColors.primary,
+      actionsIconTheme: IconThemeData(
+        color: isDarkMode ? AppColors.primary : AppColors.secondary,
         size: 17,
       ),
       actions: [
@@ -164,14 +192,15 @@ class MyAppState extends State<MyApp> {
                   onTap: () {
                     Locale newLocale = isArabic ? const Locale("en") : const Locale("ar");
                     context.setLocale(newLocale);
-                    setState(() => isArabic = !isArabic);
+                    //no need to setState the isArabic variable here as the change of the context locale
+                    //meaning change in the inherited widget _easyLocalizationProvider then will fire didChangeDependencies method and in turn the build method
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       isArabic ? "EN" : "AR",
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: isDarkMode ? AppColors.primary : AppColors.secondary,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
@@ -179,13 +208,15 @@ class MyAppState extends State<MyApp> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, "/cart"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/cart");
+                    selectedDrawerTile = "";
+                  },
                   child: const Padding(
                     padding: EdgeInsets.all(10),
                     child: Icon(
                       Icons.shopping_cart_outlined,
                       size: 17,
-                      color: AppColors.primary,
                     ),
                   ),
                 ),
@@ -196,7 +227,6 @@ class MyAppState extends State<MyApp> {
                     child: Icon(
                       isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_rounded,
                       size: 17,
-                      color: AppColors.primary,
                     ),
                   ),
                 ),
@@ -221,186 +251,176 @@ class MyAppState extends State<MyApp> {
       width: MediaQuery.of(context).size.width * 0.82,
       child: Builder(
         builder: (context) {
-          return Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushReplacementNamed(context, "/stores");
-                        selectedDrawerTile="stores";
-                      },
-                      child: Text(
-                        'drawer_app_title'.tr(),
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
+          return SafeArea( //automatically add padding in all direction to prevent obscure with the system status bar and navigation bar
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushReplacementNamed(context, "/stores");
+                          selectedDrawerTile="stores";
+                        },
+                        child: Text(
+                          'drawer_app_title'.tr(),
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ), //used as a listener to user gestures for raw touch detection
+                      IconButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        icon: Icon(
+                          Icons.close,
+                          color: textPrimary,
+                          size: 22,
                         ),
                       ),
-                    ), //used as a listener to user gestures for raw touch detection
-                    IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      icon: Icon(
-                        Icons.close,
-                        color: textPrimary,
-                        size: 22,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              const Divider(height: 1, color: Colors.transparent),
+                const Divider(height: 1, color: Colors.transparent),
 
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  children: [
-                    DrawerListTile(
-                      title: 'drawer_stores'.tr(),
-                      icon: Icon(
-                        Icons.store,
-                        size: 18,
-                        color: selectedDrawerTile == "stores"
-                            ? Colors.white
-                            : isDark
-                            ? AppColorsDark.textPrimary
-                            : AppColorsLight.textPrimary,
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    children: [
+                      DrawerListTile(
+                        title: 'drawer_stores'.tr(),
+                        icon: Icon(
+                          Icons.store,
+                          size: 18,
+                          color: selectedDrawerTile == "stores"
+                              ? Colors.white
+                              : textPrimary,
+                        ),
+                        onTap: () {
+                          selectedDrawerTile = "stores";
+                          Navigator.pushReplacementNamed(context, "/stores");
+                        },
+                        isSelected: selectedDrawerTile == "stores",
+                        isDarkMode: isDark,
                       ),
-                      onTap: () {
-                        selectedDrawerTile = "stores";
-                        Navigator.pushReplacementNamed(context, "/stores");
-                      },
-                      isSelected: selectedDrawerTile == "stores",
-                      isDarkMode: isDark,
-                    ),
 
-                    DrawerListTile(
-                      title: 'drawer_login'.tr(),
-                      icon: Icon(
-                        Icons.login,
-                        size: 18,
-                        color: selectedDrawerTile == "login"
-                            ? Colors.white
-                            : isDark
-                            ? AppColorsDark.textPrimary
-                            : AppColorsLight.textPrimary,
+                      DrawerListTile(
+                        title: 'drawer_login'.tr(),
+                        icon: Icon(
+                          Icons.login,
+                          size: 18,
+                          color: selectedDrawerTile == "login"
+                              ? Colors.white
+                              : textPrimary,
+                        ),
+                        onTap: () {
+                          selectedDrawerTile = "login";
+                          Navigator.pushReplacementNamed(context, "/login");
+                        },
+                        isSelected: selectedDrawerTile == "login",
+                        isDarkMode: isDark,
                       ),
-                      onTap: () {
-                        selectedDrawerTile = "login";
-                        Navigator.pushReplacementNamed(context, "/login");
-                      },
-                      isSelected: selectedDrawerTile == "login",
-                      isDarkMode: isDark,
-                    ),
 
-                    DrawerListTile(
-                      title: 'drawer_register'.tr(),
-                      icon: Icon(
-                        Icons.person_add_alt,
-                        size: 18,
-                        color: selectedDrawerTile == "register"
-                            ? Colors.white
-                            : isDark
-                            ? AppColorsDark.textPrimary
-                            : AppColorsLight.textPrimary,
+                      DrawerListTile(
+                        title: 'drawer_register'.tr(),
+                        icon: Icon(
+                          Icons.person_add_alt,
+                          size: 18,
+                          color: selectedDrawerTile == "register"
+                              ? Colors.white
+                              : textPrimary,
+                        ),
+                        onTap: () {
+                          selectedDrawerTile = "register";
+                          Navigator.pushReplacementNamed(context, "/register");
+                        },
+                        isSelected: selectedDrawerTile == "register",
+                        isDarkMode: isDark,
                       ),
-                      onTap: () {
-                        selectedDrawerTile = "register";
-                        Navigator.pushReplacementNamed(context, "/register");
-                      },
-                      isSelected: selectedDrawerTile == "register",
-                      isDarkMode: isDark,
-                    ),
 
-                    const SizedBox(height: 8),
+                      const SizedBox(height: 8),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      child: Text(
-                        'drawer_member_area'.tr().toUpperCase(),
-                        style: TextStyle(
-                          color: textSecondary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1.2,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        child: Text(
+                          'drawer_member_area'.tr().toUpperCase(),
+                          style: TextStyle(
+                            color: textSecondary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                          ),
                         ),
                       ),
-                    ),
 
-                    DrawerListTile(
-                      title: 'drawer_orders'.tr(),
-                      icon: FaIcon(
-                        FontAwesomeIcons.cube,
-                        size: 18,
-                        color: selectedDrawerTile == "orders"
-                            ? Colors.white
-                            : isDark
-                            ? AppColorsDark.textMuted
-                            : AppColorsLight.textMuted,
+                      DrawerListTile(
+                        title: 'drawer_orders'.tr(),
+                        icon: FaIcon(
+                          FontAwesomeIcons.cube,
+                          size: 18,
+                          color: selectedDrawerTile == "orders"
+                              ? Colors.white
+                              : textMuted,
+                        ),
+                        onTap: () {
+                          selectedDrawerTile = "orders";
+                          Navigator.pushReplacementNamed(context, "/orders");
+                        },
+                        isSelected: false,
+                        isDarkMode: isDark,
+                        titleColor: textMuted,
+                        enabled: false,
                       ),
-                      onTap: () {
-                        selectedDrawerTile = "orders";
-                        Navigator.pushReplacementNamed(context, "/orders");
-                      },
-                      isSelected: false,
-                      isDarkMode: isDark,
-                      titleColor: textMuted,
-                      enabled: false,
-                    ),
 
-                    DrawerListTile(
-                      title: 'drawer_wishlist'.tr(),
-                      icon: FaIcon(
-                        FontAwesomeIcons.heart,
-                        size: 18,
-                        color: selectedDrawerTile == "wishlist"
-                            ? Colors.white
-                            : isDark
-                            ? AppColorsDark.textMuted
-                            : AppColorsLight.textMuted,
+                      DrawerListTile(
+                        title: 'drawer_wishlist'.tr(),
+                        icon: FaIcon(
+                          FontAwesomeIcons.heart,
+                          size: 18,
+                          color: selectedDrawerTile == "wishlist"
+                              ? Colors.white
+                              : textMuted,
+                        ),
+                        onTap: () {
+                          selectedDrawerTile = "wishlist";
+                          Navigator.pushReplacementNamed(context, "/wishlist");
+                        },
+                        isSelected: false,
+                        isDarkMode: isDark,
+                        titleColor: textMuted,
+                        enabled: false,
                       ),
-                      onTap: () {
-                        selectedDrawerTile = "wishlist";
-                        Navigator.pushReplacementNamed(context, "/wishlist");
-                      },
-                      isSelected: false,
-                      isDarkMode: isDark,
-                      titleColor: textMuted,
-                      enabled: false,
-                    ),
 
-                    DrawerListTile(
-                      title: 'drawer_profile'.tr(),
-                      icon: Icon(
-                        Icons.person,
-                        size: 18,
-                        color: selectedDrawerTile == "profile"
-                            ? Colors.white
-                            : isDark
-                            ? AppColorsDark.textMuted
-                            : AppColorsLight.textMuted,
+                      DrawerListTile(
+                        title: 'drawer_profile'.tr(),
+                        icon: Icon(
+                          Icons.person,
+                          size: 18,
+                          color: selectedDrawerTile == "profile"
+                              ? Colors.white
+                              : textMuted,
+                        ),
+                        onTap: () {
+                          selectedDrawerTile = "profile";
+                          Navigator.pushReplacementNamed(context, "/profile");
+                        },
+                        isSelected: false,
+                        isDarkMode: isDark,
+                        titleColor: textMuted,
+                        enabled: false,
                       ),
-                      onTap: () {
-                        selectedDrawerTile = "profile";
-                        Navigator.pushReplacementNamed(context, "/profile");
-                      },
-                      isSelected: false,
-                      isDarkMode: isDark,
-                      titleColor: textMuted,
-                      enabled: false,
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+                      const SizedBox(height: 8),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            )
           );
         },
       ),
