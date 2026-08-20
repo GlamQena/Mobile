@@ -116,5 +116,50 @@
 
   "register_error_account_not_created": "لم يتم إنشاء الحساب. يرجى المحاولة مرة أخرى.",
   "register_error_server": "خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقًا.",
-  "register_error_default": "فشل التسجيل. يرجى المحاولة مرة أخرى."
+  "register_error_default": "فشل التسجيل. يرجى المحاولة مرة أخرى.",
+
+  "verify_email_title": "تحقق من بريدك الإلكتروني",
+  "verify_email_subtitle": "لقد أرسلنا رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد والنقر على الرابط لتفعيل حسابك.",
+
+  "verify_email_checking": "جاري التحقق من بريدك...",
+  "verify_email_checking_subtitle": "يرجى الانتظار أثناء التحقق من بريدك الإلكتروني. قد يستغرق ذلك بضع ثوانٍ...",
+
+  "verify_email_redirecting": "جاري التوجيه إلى لوحة التحكم...",
+  "verify_email_redirecting_subtitle": "تم التحقق من بريدك الإلكتروني بنجاح. سيتم توجيهك إلى لوحة التحكم قريبًا.",
+
+  "verify_email_success_title": "تم التحقق بنجاح!",
+  "verify_email_success_subtitle": "تم تفعيل بريدك الإلكتروني بنجاح. يمكنك الآن الاستمتاع بتجربة التسوق.",
+
+  "verify_email_expired_title": "انتهت صلاحية رابط التحقق",
+  "verify_email_expired_subtitle": "انتهت صلاحية رابط التحقق. يرجى طلب رابط تحقق جديد.",
+
+  "verify_email_invalid_title": "رابط تحقق غير صالح",
+  "verify_email_invalid_subtitle": "رابط التحقق غير صالح. يرجى التحقق من بريدك الإلكتروني أو إعادة الإرسال للحصول على الرابط الصحيح.",
+
+  "verify_email_already_verified": "البريد الإلكتروني مفعل بالفعل",
+  "verify_email_already_verified_subtitle": "تم تفعيل بريدك الإلكتروني بالفعل. يرجى التوجه إلى لوحة التحكم.",
+
+  "verify_email_resend_button": "إعادة إرسال رابط التحقق",
+  "verify_email_retry_button": "إعادة المحاولة",
+  "verify_email_go_to_dashboard": "الذهاب إلى لوحة التحكم",
+
+  "verify_email_resend_success": "تم إعادة إرسال رابط التحقق إلى بريدك الإلكتروني.",
+  "verify_email_resend_error": "فشل إعادة إرسال رابط التحقق. يرجى المحاولة مرة أخرى.",
+  "verify_email_resend_error_title": "فشل إعادة الإرسال",
+  "verify_email_resend_error_subtitle": "تعذر إرسال رابط التحقق. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+
+  "verify_email_resend_email_required": "البريد الإلكتروني مطلوب لإعادة إرسال رابط التحقق.",
+  "verify_email_resend_user_not_found": "لا يوجد حساب مرتبط بهذا البريد الإلكتروني.",
+  "verify_email_resend_already_verified": "هذا البريد الإلكتروني مفعل بالفعل. يرجى التوجه إلى لوحة التحكم.",
+
+  "verify_email_check_inbox": "تحقق من بريدك الإلكتروني",
+  "verify_email_not_redirect": "لم يتم التوجيه؟",
+  "verify_email_retry": "إعادة المحاولة",
+  "verify_email_no_credentials": "لم يصلك البريد الإلكتروني؟",
+  "verify_email_resend": "إعادة الإرسال",
+
+  "logout_success": "تم تسجيل الخروج بنجاح. تم تسجيل خروجك.",
+  "logout_success_with_cart": "تم تسجيل الخروج بنجاح. تم مسح سلة التسوق المؤقتة الخاصة بك.",
+  "logout_error_server": "حدث خطأ في الخادم أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.",
+  "logout_error_default": "فشل تسجيل الخروج. يرجى المحاولة مرة أخرى."
 }

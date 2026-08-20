@@ -1,10 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobile_app/custom_widgets/show_snack_bar.dart';
+import 'package:mobile_app/services/api_client.dart';
+import 'package:mobile_app/services/auth.dart';
+import 'package:mobile_app/services/messages_mappers/logout_messages.dart';
 import 'custom_widgets/drawer_list_tile.dart';
 import 'public/app_colors.dart';
 import 'package:get_storage/get_storage.dart';
+import './services/secure_storage.dart';
 
 // Authentication screens
 import 'pages/authentication/login.dart';
@@ -28,9 +34,10 @@ import 'pages/client_dashboard/order_details.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureSystemUI();
-  await GetStorage.init();
   await EasyLocalization.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
+  await GetStorage.init();
   final storage = GetStorage();
   final String preferredLang = storage.read("lang") ?? "ar";
 
@@ -63,9 +70,11 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp>{
   final storage = GetStorage();
   bool isDarkMode = true;
+  final SecureStorageService secureStorage = SecureStorageService();
+  late bool isLoggedIn;
   late bool isArabic;
   String selectedDrawerTile = "login";
 
@@ -73,9 +82,10 @@ class MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     isDarkMode = storage.read("theme") ?? true;
+    isLoggedIn = await secureStorage.isLoggedIn();
   }
 
   @override
@@ -100,7 +110,7 @@ class MyAppState extends State<MyApp> {
         '/forget_password': (context) => _buildMainScaffold(ForgetPassword()),
         '/reset_password': (context) => _buildMainScaffold(ResetPassword()),
         '/verify_otp': (context) => _buildMainScaffold(VerifyOTP()),
-        '/verify_email': (context) => _buildMainScaffold(VerifyEmail()),
+        '/verify_email': (context) => _buildMainScaffold(VerifyEmail(isDarkMode: isDarkMode, selectedDrawerTile: selectedDrawerTile)),
         '/profile': (context) => _buildMainScaffold(Profile()),
         '/cart': (context) => _buildMainScaffold(Cart()),
         '/stores': (context) => _buildMainScaffold(Stores()),
@@ -240,6 +250,8 @@ class MyAppState extends State<MyApp> {
 
   Widget _buildDrawer(BuildContext context) {
     final isDark = isDarkMode;
+    AuthService authService = AuthService();
+    ApiClient apiClient = ApiClient();
 
     final backgroundColor = isDark ? AppColorsDark.sidebarBackground : AppColorsLight.sidebarBackground;
     final textPrimary = isDark ? AppColorsDark.textPrimary : AppColorsLight.textPrimary;
@@ -310,7 +322,7 @@ class MyAppState extends State<MyApp> {
                         isDarkMode: isDark,
                       ),
 
-                      DrawerListTile(
+                      !isLoggedIn ? DrawerListTile(
                         title: 'drawer_login'.tr(),
                         icon: Icon(
                           Icons.login,
@@ -325,7 +337,7 @@ class MyAppState extends State<MyApp> {
                         },
                         isSelected: selectedDrawerTile == "login",
                         isDarkMode: isDark,
-                      ),
+                      ) : SizedBox.shrink(),
 
                       DrawerListTile(
                         title: 'drawer_register'.tr(),
@@ -346,7 +358,7 @@ class MyAppState extends State<MyApp> {
 
                       const SizedBox(height: 8),
 
-                      Padding(
+                      !isLoggedIn ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                         child: Text(
                           'drawer_member_area'.tr().toUpperCase(),
@@ -357,7 +369,7 @@ class MyAppState extends State<MyApp> {
                             letterSpacing: 1.2,
                           ),
                         ),
-                      ),
+                      ) : SizedBox.shrink(),
 
                       DrawerListTile(
                         title: 'drawer_orders'.tr(),
@@ -365,17 +377,19 @@ class MyAppState extends State<MyApp> {
                           FontAwesomeIcons.cube,
                           size: 18,
                           color: selectedDrawerTile == "orders"
-                              ? Colors.white
-                              : textMuted,
+                            ? Colors.white
+                            : isLoggedIn
+                            ? textPrimary
+                            : textMuted,
                         ),
                         onTap: () {
                           selectedDrawerTile = "orders";
                           Navigator.pushReplacementNamed(context, "/orders");
                         },
-                        isSelected: false,
+                        isSelected: isLoggedIn ? selectedDrawerTile == "orders" : false,
                         isDarkMode: isDark,
-                        titleColor: textMuted,
-                        enabled: false,
+                        titleColor: !isLoggedIn ? textMuted : null,
+                        enabled: isLoggedIn,
                       ),
 
                       DrawerListTile(
@@ -384,17 +398,19 @@ class MyAppState extends State<MyApp> {
                           FontAwesomeIcons.heart,
                           size: 18,
                           color: selectedDrawerTile == "wishlist"
-                              ? Colors.white
-                              : textMuted,
+                            ? Colors.white
+                            : isLoggedIn
+                            ? textPrimary
+                            : textMuted,
                         ),
                         onTap: () {
                           selectedDrawerTile = "wishlist";
                           Navigator.pushReplacementNamed(context, "/wishlist");
                         },
-                        isSelected: false,
+                        isSelected: isLoggedIn ? selectedDrawerTile == "wishlist" : false,
                         isDarkMode: isDark,
-                        titleColor: textMuted,
-                        enabled: false,
+                        titleColor: !isLoggedIn ? textMuted : null,
+                        enabled: isLoggedIn,
                       ),
 
                       DrawerListTile(
@@ -403,18 +419,57 @@ class MyAppState extends State<MyApp> {
                           Icons.person,
                           size: 18,
                           color: selectedDrawerTile == "profile"
-                              ? Colors.white
-                              : textMuted,
+                            ? Colors.white
+                            : isLoggedIn
+                            ? textPrimary
+                            : textMuted,
                         ),
                         onTap: () {
                           selectedDrawerTile = "profile";
                           Navigator.pushReplacementNamed(context, "/profile");
                         },
+                        isSelected: isLoggedIn ? selectedDrawerTile == "profile" : false,
+                        isDarkMode: isDark,
+                        titleColor: !isLoggedIn ? textMuted : null,
+                        enabled: isLoggedIn,
+                      ),
+
+                      DrawerListTile(
+                        title: 'drawer_logout'.tr(),
+                        icon: Icon(
+                          Icons.logout,
+                          size: 18,
+                          color:
+                            isLoggedIn ?
+                            textPrimary :
+                            textMuted,
+                        ),
+                        onTap: () async{
+                          try{
+                            String successMessage = await authService.logout();
+                            if(context.mounted){
+                              showSnackBarCustom(message: LogoutMessages.getLocalizedMessage(successMessage), isSuccess: true, isDarkMode: isDarkMode, context: context);
+                              setState(() {
+                                isLoggedIn = false;
+                              });
+
+                              //close the drawer
+                              Navigator.of(context).pop();
+                              Navigator.pushReplacementNamed(context, "/login");
+                            }
+                          }catch(ex){
+                            String errorMessage = apiClient.extractResponseMessage(ex.toString());
+                            if(context.mounted){
+                              showSnackBarCustom(message: LogoutMessages.getLocalizedMessage(errorMessage), isSuccess: false, isDarkMode: isDarkMode, context: context);
+                            }
+                          }
+                        },
                         isSelected: false,
                         isDarkMode: isDark,
-                        titleColor: textMuted,
-                        enabled: false,
+                        titleColor: !isLoggedIn ? textMuted : null,
+                        enabled: isLoggedIn,
                       ),
+
                       const SizedBox(height: 8),
                     ],
                   ),

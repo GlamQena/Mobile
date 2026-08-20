@@ -1,83 +1,188 @@
 // services/api_client.dart
 import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../models/tokens.dart';
 import './secure_storage.dart';
 
 class ApiClient {
-  final String baseUrl = "http://127.0.0.1:8080";
+  final String baseUrl = dotenv.env["API_URL"] ?? "http://127.0.0.1:8080";
   http.Client httpClient = http.Client();
   final SecureStorageService _storage = SecureStorageService();
 
-  // Public request (no token needed)
-  Future<Map<String, dynamic>> publicPost(String route, String endpoint, Map<String, dynamic> data) async {
+  // ============ PUBLIC METHODS ============
+  Future<Map<String, dynamic>> publicPost({
+    required String route,
+    required String endpoint,
+    required Map<String, dynamic> data,
+    Map<String, String>? queryParams
+  }) async {
+    String queryString = queryParams != null
+        ? queryParams.entries.map((entry) => "${entry.key}=${entry.value}").toList().join("&")
+        : "";
     final response = await httpClient.post(
-      Uri.parse("$baseUrl$route$endpoint"),
+      Uri.parse("$baseUrl$route$endpoint${queryString.isNotEmpty ? '?$queryString' : ''}"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(data),
     );
     return _parseResponse(response);
   }
 
-  // Private request with token (auto-refresh if needed)
-  Future<Map<String, dynamic>> privatePost(String route, String endpoint, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> publicGet(
+      String route,
+      String endpoint, {
+        Map<String, String?>? queryParams,
+      }) async {
+    String queryString = queryParams != null
+        ? queryParams.entries.map((entry) => "${entry.key}=${entry.value}").toList().join("&")
+        : "";
+    final response = await httpClient.get(
+      Uri.parse("$baseUrl$route$endpoint${queryString.isNotEmpty ? '?$queryString' : ''}"),
+      headers: {"Content-Type": "application/json"},
+    );
+    return _parseResponse(response);
+  }
+
+  Future<Map<String, dynamic>> publicPut({
+    required String route,
+    required String endpoint,
+    required Map<String, dynamic> data,
+    Map<String, String>? queryParams,
+  }) async {
+    String queryString = queryParams != null
+        ? queryParams.entries.map((entry) => "${entry.key}=${entry.value}").toList().join("&")
+        : "";
+    final response = await httpClient.put(
+      Uri.parse("$baseUrl$route$endpoint${queryString.isNotEmpty ? '?$queryString' : ''}"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(data),
+    );
+    return _parseResponse(response);
+  }
+
+  Future<Map<String, dynamic>> publicDelete(
+      String route,
+      String endpoint, {
+        Map<String, String>? queryParams,
+      }) async {
+    String queryString = queryParams != null
+        ? queryParams.entries.map((entry) => "${entry.key}=${entry.value}").toList().join("&")
+        : "";
+    final response = await httpClient.delete(
+      Uri.parse("$baseUrl$route$endpoint${queryString.isNotEmpty ? '?$queryString' : ''}"),
+      headers: {"Content-Type": "application/json"},
+    );
+    return _parseResponse(response);
+  }
+
+
+  // ============ PRIVATE METHODS (With Token) ============
+  Future<Map<String, dynamic>> privatePost({
+    required String route,
+    required String endpoint,
+    required Map<String, dynamic> data,
+    Map<String, String>? queryParams,
+  }) async {
+    final tokenInfo = await _getValidToken();
+    if (tokenInfo == null) {
+      throw Exception('Session expired. Please login again.');
+    }
+    return await _makeAuthenticatedRequest(
+      method: 'POST',
+      route: route,
+      endpoint: endpoint,
+      data: data,
+      token: tokenInfo.accessToken,
+      queryParams: queryParams,
+    );
+  }
+
+  Future<Map<String, dynamic>> privateGet(
+      String route,
+      String endpoint, {
+        Map<String, String>? queryParams,
+      }) async {
+    final tokenInfo = await _getValidToken();
+    if (tokenInfo == null) {
+      throw Exception('Session expired. Please login again.');
+    }
+    return await _makeAuthenticatedRequest(
+      method: 'GET',
+      route: route,
+      endpoint: endpoint,
+      token: tokenInfo.accessToken,
+      queryParams: queryParams,
+    );
+  }
+
+  Future<Map<String, dynamic>> privatePut({
+    required String route,
+    required String endpoint,
+    required Map<String, dynamic> data,
+    Map<String, String>? queryParams,
+  }) async {
+    final tokenInfo = await _getValidToken();
+    if (tokenInfo == null) {
+      throw Exception('Session expired. Please login again.');
+    }
+    return await _makeAuthenticatedRequest(
+      method: 'PUT',
+      route: route,
+      endpoint: endpoint,
+      data: data,
+      token: tokenInfo.accessToken,
+      queryParams: queryParams,
+    );
+  }
+
+  Future<Map<String, dynamic>> privateDelete(
+      String route,
+      String endpoint, {
+        Map<String, String>? queryParams,
+      }) async {
+    final tokenInfo = await _getValidToken();
+    if (tokenInfo == null) {
+      throw Exception('Session expired. Please login again.');
+    }
+    return await _makeAuthenticatedRequest(
+      method: 'DELETE',
+      route: route,
+      endpoint: endpoint,
+      token: tokenInfo.accessToken,
+      queryParams: queryParams,
+    );
+  }
+
+
+  // ============ HELPER METHODS ============
+  Future<TokenInfo?> _getValidToken() async {
     final tokenInfo = await _storage.getTokenInfo();
 
     if (tokenInfo == null) {
-      throw Exception('No tokens found. Please login.');
+      return null;
     }
 
     // Check if access token needs refresh
     if (tokenInfo.needsRefresh) {
       final newTokenInfo = await refreshToken(tokenInfo.refreshToken);
       if (newTokenInfo == null) {
-        throw Exception('Session expired. Please login again.');
+        return null;
       }
-
-      return await _makeAuthenticatedRequest(
-        route,
-        endpoint,
-        data,
-        newTokenInfo.accessToken,
-      );
+      return newTokenInfo;
     }
 
-    // Use existing valid token
-    return await _makeAuthenticatedRequest(
-      route,
-      endpoint,
-      data,
-      tokenInfo.accessToken,
-    );
-  }
-
-  Future<Map<String, dynamic>> privateGet(String route, String endpoint) async {
-    final tokenInfo = await _storage.getTokenInfo();
-
-    if (tokenInfo == null) {
-      throw Exception('No tokens found. Please login.');
-    }
-
-    if (tokenInfo.needsRefresh) {
-      final newTokenInfo = await refreshToken(tokenInfo.refreshToken);
-      if (newTokenInfo == null) {
-        throw Exception('Session expired. Please login again.');
-      }
-      return await _makeAuthenticatedGetRequest(route, endpoint, newTokenInfo.accessToken);
-    }
-
-    return await _makeAuthenticatedGetRequest(route, endpoint, tokenInfo.accessToken);
+    return tokenInfo;
   }
 
   Future<TokenInfo?> refreshToken(String refreshToken) async {
     try {
       final response = await httpClient.get(
-        Uri.parse("$baseUrl/auth/refresh-token"),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $refreshToken",
-        }
+          Uri.parse("$baseUrl/auth/refresh-token"),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $refreshToken",
+          }
       );
 
       if (response.statusCode == 200) {
@@ -85,12 +190,11 @@ class ApiClient {
         await _storage.saveTokens(
           accessToken: data['accessToken'],
           refreshToken: data['refreshToken'] ?? refreshToken,
-          accessTokenExpirySeconds: data['expires_in'] ?? 900, //default 15 minutes
-          refreshTokenExpirySeconds: 604800, // 7 days
+          accessTokenExpirySeconds: data['expires_in'] ?? 900,
+          refreshTokenExpirySeconds: 604800,
         );
         return await _storage.getTokenInfo();
       } else if (response.statusCode == 401) {
-        // Refresh token expired
         await _storage.clearTokens();
         throw Exception('Session expired. Please login again.');
       }
@@ -101,36 +205,53 @@ class ApiClient {
     }
   }
 
-  // Authenticated POST request
-  Future<Map<String, dynamic>> _makeAuthenticatedRequest(
-      String route,
-      String endpoint,
-      Map<String, dynamic> data,
-      String token,
-      ) async {
-    final response = await httpClient.post(
-      Uri.parse("$baseUrl$route$endpoint"),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
-      body: jsonEncode(data),
-    );
-    return _parseResponse(response);
-  }
+  // Generic authenticated request (handles all HTTP methods)
+  Future<Map<String, dynamic>> _makeAuthenticatedRequest({
+    required String method,
+    required String route,
+    required String endpoint,
+    String? token,
+    Map<String, dynamic>? data,
+    Map<String, String>? queryParams,
+  }) async {
+    String queryString = queryParams != null
+        ? queryParams.entries.map((entry) => "${entry.key}=${entry.value}").toList().join("&")
+        : "";
 
-  Future<Map<String, dynamic>> _makeAuthenticatedGetRequest(
-      String route,
-      String endpoint,
-      String token,
-      ) async {
-    final response = await httpClient.get(
-      Uri.parse("$baseUrl$route$endpoint"),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
-    );
+    final url = Uri.parse("$baseUrl$route$endpoint${queryString.isNotEmpty ? '?$queryString' : ''}");
+
+    final headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
+
+    http.Response response;
+
+    switch (method.toUpperCase()) {
+      case 'GET':
+        response = await httpClient.get(url, headers: headers);
+        break;
+      case 'POST':
+        response = await httpClient.post(
+          url,
+          headers: headers,
+          body: jsonEncode(data),
+        );
+        break;
+      case 'PUT':
+        response = await httpClient.put(
+          url,
+          headers: headers,
+          body: jsonEncode(data),
+        );
+        break;
+      case 'DELETE':
+        response = await httpClient.delete(url, headers: headers);
+        break;
+      default:
+        throw Exception('Unsupported HTTP method: $method');
+    }
+
     return _parseResponse(response);
   }
 
@@ -144,10 +265,8 @@ class ApiClient {
     }
   }
 
-
-  // consider the String parameter to include the Exception String thrown from the manual try-catch block
+  //extract exception messages from stringified json response and raw String exception
   String extractResponseMessage(String res) {
-    // Try to extract JSON res message
     try {
       final start = res.indexOf('{');
       final end = res.lastIndexOf('}');
@@ -161,33 +280,14 @@ class ApiClient {
           return json['error'];
         }
       }
-    } catch (e) { //catch exception while trying to decode the jsonStr
+    } catch (e) {
       // Not JSON, continue
     }
 
-    // If no JSON found, clean the error res raw string
     return res
         .replaceAll('Exception: ', '')
         .replaceAll('API Error: ', '')
         .replaceAll('Unauthorized: ', '')
-        .replaceAll(RegExp(r'\d{3} - '), ''); //remove the status code from the "API Error" exception
+        .replaceAll(RegExp(r'\d{3} - '), '');
   }
-}
-
-class ApiResult{
-  final bool isSuccess;
-  final String message;
-  final String localizedKey;
-
-  ApiResult({required this.isSuccess, required this.message, required this.localizedKey});
-
-  factory ApiResult.success({required String message, required String localizedKey}){
-    return ApiResult(isSuccess: true, message: message, localizedKey: localizedKey);
-  }
-
-  factory ApiResult.error({required String message, required String localizedKey}){
-    return ApiResult(isSuccess: false, message: message, localizedKey: localizedKey);
-  }
-
-  String get getLocalizedMessage => localizedKey.tr() ?? message;
 }

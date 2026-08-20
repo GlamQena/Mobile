@@ -156,7 +156,7 @@ class AppColorsDark {
 
   // USED FOR: Active Sidebar Item background. Uses the Brand Gradient.
   static const LinearGradient sidebarActiveGradient = LinearGradient(
-    colors: AppColors.brandGradient, //or hero gradient
+    colors: AppColors.heroGradient, //or hero gradient
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );

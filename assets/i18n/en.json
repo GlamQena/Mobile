@@ -7,6 +7,7 @@
   "drawer_orders": "Orders",
   "drawer_wishlist": "Wishlist",
   "drawer_profile": "Profile",
+
   "login_title": "Welcome back",
   "login_subtitle": "Log in to your account to continue",
   "login_username_label": "Username or Email",
@@ -54,9 +55,12 @@
 
   "register_address_title": "ADDRESS DETAILS",
   "register_city_label": "City",
+  "register_city_maxLength": "City must not exceed 50 characters",
   "register_area_label": "Area",
+  "register_area_maxLength": "Area must not exceed 50 characters",
   "register_street_label": "Street",
   "register_street_placeholder": "Street name / Number",
+  "register_street_maxLength": "Street must not exceed 100 characters",
 
   "register_password_label": "Password",
   "register_password_placeholder": "••••••••",
@@ -112,5 +116,50 @@
 
   "register_error_account_not_created": "Account could not be created. Please try again.",
   "register_error_server": "Server error. Please try again later.",
-  "register_error_default": "Registration failed. Please try again."
+  "register_error_default": "Registration failed. Please try again.",
+
+  "verify_email_title": "Verify Your Email",
+  "verify_email_subtitle": "We've sent a verification link to your email. Please check your inbox and click the link to activate your account.",
+
+  "verify_email_checking": "Verifying your email...",
+  "verify_email_checking_subtitle": "Please wait while we verify your email. This may take a few seconds...",
+
+  "verify_email_redirecting": "Redirecting to dashboard...",
+  "verify_email_redirecting_subtitle": "Your email has been verified successfully. You will be redirected to your dashboard shortly.",
+
+  "verify_email_success_title": "Verification Successful!",
+  "verify_email_success_subtitle": "Your email has been successfully activated. You can now enjoy your shopping experience.",
+
+  "verify_email_expired_title": "Verification Link Expired",
+  "verify_email_expired_subtitle": "The verification link has expired. Please request a new verification link.",
+
+  "verify_email_invalid_title": "Invalid Verification Link",
+  "verify_email_invalid_subtitle": "The verification link is invalid. Please check your email or resend to get the correct link.",
+
+  "verify_email_already_verified": "Email Already Verified",
+  "verify_email_already_verified_subtitle": "Your email has already been verified. Please proceed to your dashboard.",
+
+  "verify_email_resend_button": "Resend Verification Email",
+  "verify_email_retry_button": "Try Again",
+  "verify_email_go_to_dashboard": "Go to Dashboard",
+
+  "verify_email_resend_success": "Verification link has been resent to your email.",
+  "verify_email_resend_error": "Failed to resend verification link. Please try again.",
+  "verify_email_resend_error_title": "Resend Failed",
+  "verify_email_resend_error_subtitle": "We couldn't send the verification link. Please check your connection and try again.",
+
+  "verify_email_resend_email_required": "Email is required to resend the verification link.",
+  "verify_email_resend_user_not_found": "No account found with this email address.",
+  "verify_email_resend_already_verified": "This email is already verified. Please proceed to your dashboard.",
+
+  "verify_email_check_inbox": "Check your email",
+  "verify_email_not_redirect": "Haven't been redirected?",
+  "verify_email_retry": "Try again",
+  "verify_email_no_credentials": "Haven't received the email?",
+  "verify_email_resend": "Resend",
+
+  "logout_success": "Logout successful. You have been signed out.",
+  "logout_success_with_cart": "Logout successful. Your session cart has been cleared.",
+  "logout_error_server": "Server error occurred during logout. Please try again.",
+  "logout_error_default": "Logout failed. Please try again."
 }

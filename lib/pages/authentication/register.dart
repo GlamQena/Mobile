@@ -51,7 +51,6 @@ class RegisterState extends State<Register>{
     final Color textPrimary = widget.isDarkMode ? AppColorsDark.textPrimary : AppColorsLight.textPrimary;
     final Color textSecondary = widget.isDarkMode ? AppColorsDark.textSecondary : AppColorsLight.textSecondary;
     final Color textMuted = widget.isDarkMode ? AppColorsDark.textMuted : AppColorsLight.textMuted;
-    BuildContext currentContext = context;
 
     return Container(
         padding: const EdgeInsets.all(20),
@@ -108,7 +107,7 @@ class RegisterState extends State<Register>{
                             isRequired: true,
                             prefixIcon: Icon(Icons.person_outline, color: textMuted, size: 17),
                             hintText: "register_username_placeholder".tr(),
-                            helperText: "register_username_helper".tr(),
+                            // helperText: "register_username_helper".tr(),
                             errorMaxLines: 3,
                             maxLines: 2,
                             validator: (val){
@@ -134,7 +133,7 @@ class RegisterState extends State<Register>{
                             isRequired: true,
                             prefixIcon: Icon(Icons.mail_outline, color: textMuted, size: 17),
                             hintText: "register_email_placeholder".tr(),
-                            helperText: "register_email_helper".tr(),
+                            // helperText: "register_email_helper".tr(),
                             errorMaxLines: 3,
                             maxLines: 3,
                             validator: (val){
@@ -161,7 +160,7 @@ class RegisterState extends State<Register>{
                             isRequired: false,
                             prefixIcon: Icon(Icons.phone, color: textMuted, size: 17),
                             hintText: "register_phone_placeholder".tr(),
-                            helperText: "register_phone_helper".tr(),
+                            // helperText: "register_phone_helper".tr(),
                             errorMaxLines: 2,
                             maxLength: 11,
                             maxLines: 1,
@@ -266,7 +265,7 @@ class RegisterState extends State<Register>{
                                           textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                                           color: textMuted,
                                           selectedColor: textPrimary,
-                                          fillColor: widget.isDarkMode ? AppColors.primary : AppColors.secondary,
+                                          fillColor: widget.isDarkMode ? AppColors.primaryDark : AppColors.secondary,
                                           borderRadius: BorderRadius.circular(7),
                                           borderWidth: 0.0,
                                           borderColor: Colors.transparent,
@@ -434,9 +433,12 @@ class RegisterState extends State<Register>{
                                 const SizedBox(height: 10),
 
                                 GradientElevatedButton(
+                                  context: context,
+                                  width: MediaQuery.of(context).size.width * 70,
+                                  borderRadius: 15,
+                                  backgroundGradient: widget.isDarkMode ? AppColorsDark.sidebarActiveGradient : AppColorsLight.sidebarActiveGradient,
                                   onPressed: () async{
                                     if(registerKey.currentState!.validate()){
-                                      ApiResult apiResult;
                                       try{
                                         RegisterRequestBody requestBody = RegisterRequestBody.fromForm(
                                           username: controllers["username"]!.text,
@@ -454,21 +456,19 @@ class RegisterState extends State<Register>{
 
                                         final authService = AuthService();
                                         String successMessage= await authService.register(requestBodyJson);
-                                        apiResult = ApiResult.success(message: successMessage, localizedKey: RegisterSuccessMessages.getLocalizedSuccess(successMessage));
-
+                                        if(context.mounted){
+                                          showSnackBarCustom(context: context, message: RegisterSuccessMessages.getLocalizedSuccess(successMessage), isSuccess: true, isDarkMode: widget.isDarkMode);
+                                        }
                                       } catch(ex){
                                         ApiClient apiClient = ApiClient();
                                         String errorMessage= apiClient.extractResponseMessage(ex.toString());
-                                        apiResult = ApiResult.error(message: errorMessage, localizedKey: RegisterErrorMessages.getLocalizedError(errorMessage));
+                                        if(context.mounted){
+                                          showSnackBarCustom(context: context, message: RegisterErrorMessages.getLocalizedError(errorMessage), isSuccess: false, isDarkMode: widget.isDarkMode);
+                                        }
                                       }
-
-                                      if(!currentContext.mounted){
-                                        return;
-                                      }
-                                      showSnackBarCustom(context: currentContext, message: apiResult.getLocalizedMessage, isSuccess: apiResult.isSuccess, isDarkMode: widget.isDarkMode);
                                     }
                                   },
-                                  child: Text("register_create_account_button".tr(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                                  child: Text("register_create_account_button".tr(), style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w400))
                                 ),
 
                                 Row(
