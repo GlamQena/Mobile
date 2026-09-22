@@ -97,6 +97,7 @@ class RegisterErrorMessages {
 
   static String getLocalizedError(String serverError){
     final key = _mapToLocalizedKey(serverError);
-    return key.tr();
+    final translated = key.tr();
+    return translated == key ? serverError : translated;
   }
 }

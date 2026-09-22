@@ -1,24 +1,95 @@
 {
   "drawer_app_title": "Glam Qena",
-  "drawer_stores": "Stores",
   "drawer_login": "Login",
   "drawer_register": "Register",
   "drawer_member_area": "MEMBER AREA",
   "drawer_orders": "Orders",
-  "drawer_wishlist": "Wishlist",
   "drawer_profile": "Profile",
+  "drawer_logout": "Logout",
+  
+  "switch_to_pink_theme": "Switch to Pink / Light Mode",
+  "switch_to_purple_theme": "Switch to Purple / Dark Mode",
 
-  "login_title": "Welcome back",
+  "footer_description": "The first beauty platform specialized in Qena Governorate. We provide beauty products from Qena stores with fast and secure delivery.",
+
+  "quick_links_title": "Quick Links",
+  "about_us": "About Us",
+  "contact_us": "Contact Us",
+  "faq": "FAQ",
+  "privacy_policy": "Privacy Policy",
+
+  "contact_us_title": "Contact Us",
+  "footer_phone_number": "5678 1234 010",
+  "footer_email": "info@qenaglam.com",
+  "footer_location": "Qena - Nile Street",
+  "footer_working_hours": "Saturday - Friday\n10:30 AM - 10:30 PM",
+
+  "terms_conditions": "Terms & Conditions",
+  "footer_copyright": "© 2026 Qena Glam. All rights reserved.",
+
+  "home": "Home",
+  "stores": "Stores",
+  "wishlist": "Wishlist",
+  "cart": "Cart",
+
+  "login": "Log in",
+  "new_account": "New Account",
+
+  "login_title": "Welcome to Glam Qena",
   "login_subtitle": "Log in to your account to continue",
-  "login_username_label": "Username or Email",
-  "login_username_placeholder": "Enter your email",
+  "login_usernameOrEmail_label": "Username or Email",
+  "login_usernameOrEmail_placeholder": "Enter your email",
   "login_password_label": "Password",
   "login_password_placeholder": "Enter password",
-  "login_remember_me": "Remember me",
+  "login_remember_me": "Remember me(30 days)",
   "login_forgot_password": "Forgot Password?",
   "login_login_button": "Log In",
+  "or": "OR",
+  "google_sign": "Continue with Google",
   "login_no_account": "Don't have an account?",
   "login_sign_up": "Sign Up",
+
+  "login_success": "Login successful.",
+  "login_success_with_cart": "Login successful. Your guest cart has been merged with your account.",
+
+  "login_error_username_or_email_required": "Email or username is required.",
+
+  "login_error_email_required": "Email is required.",
+  "login_error_email_max_length": "Email mustn't exceed 254 characters",
+  "login_error_email_invalid": "Please enter a valid email address.",
+
+  "login_error_username_required": "Username is required.",
+  "login_error_username_too_short": "Username must be at least 3 characters long.",
+  "login_error_username_too_long": "Username must not exceed 64 characters.",
+  "login_error_username_invalid_chars": "Username can only contain lowercase letters, numbers, and underscores (_).",
+  "login_error_username_invalid": "Username must be 3–64 characters and use only lowercase letters, numbers, and underscores (_).",
+
+  "login_error_password_required": "Password is required.",
+  "login_error_password_too_short": "Password must be at least 8 characters.",
+  "login_error_password_too_long": "Password must be at most 64 characters.",
+  "login_error_password_no_uppercase": "Password must contain at least one uppercase letter.",
+  "login_error_password_no_lowercase": "Password must contain at least one lowercase letter.",
+  "login_error_password_no_digit": "Password must contain at least one digit.",
+
+  "login_error_invalid_identifier": "Invalid email or username.",
+  "login_error_invalid_password": "Invalid password.",
+  "login_error_account_deactivated": "Your account is deactivated. Please contact support.",
+
+  "login_error_server": "Something went wrong on our end. Please try again later.",
+  "login_error_default": "Login failed. Please check your credentials and try again.",
+
+  "google_sign_success_created": "Account created successfully. Welcome!",
+  "google_sign_success_created_with_cart": "Account created successfully. Your guest cart has been merged with your account.",
+  "google_sign_success_login": "Signed in successfully.",
+  "google_sign_success_login_with_cart": "Signed in successfully. Your guest cart has been merged with your account.",
+
+  "google_sign_error_id_token_required": "Google sign-in failed. Please try again.",
+
+  "google_sign_error_invalid_token": "Your Google session has expired. Please sign in again.",
+  "google_sign_error_account_conflict": "This account conflicts with an existing one. Please try again or contact support.",
+
+  "google_sign_error_server": "Something went wrong on our end. Please try again later.",
+  "google_sign_error_default": "Google sign-in failed. Please try again.",
 
   "register_title": "Welcome to Glam Qena",
   "register_subtitle": "Please fill in the details below to create your account",
@@ -48,6 +119,9 @@
   "register_dob_format": "Enter date in DD/MM/YYYY format",
   "register_dob_validation": "Please enter a valid date",
   "register_dob_future": "Date of birth cannot be in the future",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "register_dob_picker": "select you dob",
 
   "register_gender_label": "Gender",
   "register_gender_male": "Male",
@@ -139,6 +213,9 @@
   "verify_email_already_verified": "Email Already Verified",
   "verify_email_already_verified_subtitle": "Your email has already been verified. Please proceed to your dashboard.",
 
+  "verify_email_waiting_title": "Waiting for the new link",
+  "verify_email_waiting_subtitle": "We've sent a fresh verification link to your email. Open your inbox and tap the link to verify your account.",
+
   "verify_email_resend_button": "Resend Verification Email",
   "verify_email_retry_button": "Try Again",
   "verify_email_go_to_dashboard": "Go to Dashboard",
@@ -151,12 +228,19 @@
   "verify_email_resend_email_required": "Email is required to resend the verification link.",
   "verify_email_resend_user_not_found": "No account found with this email address.",
   "verify_email_resend_already_verified": "This email is already verified. Please proceed to your dashboard.",
+  "verify_email_resend_server_error": "The server is having trouble right now. Please try again in a moment.",
+
+  "verify_email_retry_limit_title": "Let's try later",
+  "verify_email_retry_limit_subtitle": "We couldn't verify your email after several attempts. Continue to the dashboard — you can verify your email later from your profile page.",
+  "verify_email_verify_later_from_profile": "You can verify your email anytime from your profile page.",
+
+  "verify_email_help_retry_prompt": "Haven't been redirected?",
+  "verify_email_help_retry_action": "Try again",
+  "verify_email_help_resend_prompt": "Haven't received the email?",
+  "verify_email_help_resend_action": "Resend",
 
   "verify_email_check_inbox": "Check your email",
-  "verify_email_not_redirect": "Haven't been redirected?",
-  "verify_email_retry": "Try again",
-  "verify_email_no_credentials": "Haven't received the email?",
-  "verify_email_resend": "Resend",
+  "verify_email_error_default": "Something went wrong while verifying your email. Please try again or request a new verification link.",
 
   "logout_success": "Logout successful. You have been signed out.",
   "logout_success_with_cart": "Logout successful. Your session cart has been cleared.",

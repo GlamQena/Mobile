@@ -1,24 +1,95 @@
 {
   "drawer_app_title": "Glam Qena",
-  "drawer_stores": "المتاجر",
   "drawer_login": "تسجيل الدخول",
   "drawer_register": "إنشاء حساب",
   "drawer_member_area": "منطقة الأعضاء",
   "drawer_orders": "الطلبات",
-  "drawer_wishlist": "قائمة الرغبات",
   "drawer_profile": "الملف الشخصي",
+  "drawer_logout": "تسجيل الخروج",
 
-  "login_title": "مرحبًا بعودتك",
+  "switch_to_pink_theme": "التبديل إلى المظهر الوردي/الفاتح",
+  "switch_to_purple_theme": "التبديل إلى المظهر البنفسجي/الداكن",
+
+  "footer_description": "أول منصة تجميل متخصصة في محافظة قنا. نقدم لك أفضل منتجات التجميل من محلات قنا مع توصيل سريع وآمن.",
+
+  "quick_links_title": "روابط سريعة",
+  "about_us": "من نحن",
+  "contact_us": "اتصل بنا",
+  "faq": "الأسئلة الشائعة",
+  "privacy_policy": "سياسة الخصوصية",
+
+  "contact_us_title": "تواصل معنا",
+  "footer_phone_number": "5678 1234 010",
+  "footer_email": "info@qenaglam.com",
+  "footer_location": "قنا - شارع النيل",
+  "footer_working_hours": "السبت - الجمعة\n10:30 ص - 10:30 م",
+
+  "terms_conditions": "الشروط والأحكام",
+  "footer_copyright": "© 2026 Qena Glam. جميع الحقوق محفوظة.",
+
+  "home": "الرئيسية",
+  "stores": "المتاجر",
+  "wishlist": "المفضلة",
+  "cart": "السلة",
+
+  "login": "تسجيل دخول",
+  "new_account": "حساب جديد",
+
+  "login_title": "مرحبًا بك فى Glam Qena",
   "login_subtitle": "سجل الدخول إلى حسابك للمتابعة",
-  "login_username_label": "اسم المستخدم أو البريد الإلكتروني",
-  "login_username_placeholder": "أدخل بريدك الإلكتروني",
+  "login_usernameOrEmail_label": "اسم المستخدم أو البريد الإلكتروني",
+  "login_usernameOrEmail_placeholder": "أدخل بريدك الإلكتروني",
   "login_password_label": "كلمة المرور",
   "login_password_placeholder": "أدخل كلمة السر",
-  "login_remember_me": "تذكرني",
+  "login_remember_me": "تذكرني(لمدة 30 يومًا)",
   "login_forgot_password": "نسيت كلمة المرور؟",
   "login_login_button": "تسجيل الدخول",
+  "or": "أو",
+  "google_sign": "المتابعة باستخدام Google",
   "login_no_account": "ليس لديك حساب؟",
   "login_sign_up": "إنشاء حساب",
+
+  "login_success": "تم تسجيل الدخول بنجاح.",
+  "login_success_with_cart": "تم تسجيل الدخول بنجاح. تم دمج سلة الضيف مع حسابك.",
+
+  "login_error_username_or_email_required": "البريد الإلكتروني أو اسم المستخدم مطلوب.",
+
+  "login_error_email_required": "البريد الإلكتروني مطلوب.",
+  "login_error_email_max_length": "يجب ألا يتجاوز البريد الإلكتروني 254 حرفًا",
+  "login_error_email_invalid": "يرجى إدخال بريد إلكتروني صحيح.",
+
+  "login_error_username_required": "اسم المستخدم مطلوب.",
+  "login_error_username_too_short": "يجب أن يتكون اسم المستخدم من 3 أحرف على الأقل.",
+  "login_error_username_too_long": "يجب ألا يتجاوز اسم المستخدم 64 حرفًا.",
+  "login_error_username_invalid_chars": "يمكن أن يحتوي اسم المستخدم على أحرف إنجليزية صغيرة وأرقام وشرطة سفلية (_) فقط.",
+  "login_error_username_invalid": "يجب أن يتكون اسم المستخدم من 3 إلى 64 حرفًا وأن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطة سفلية (_) فقط.",
+
+  "login_error_password_required": "كلمة المرور مطلوبة.",
+  "login_error_password_too_short": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
+  "login_error_password_too_long": "يجب ألا تتجاوز كلمة المرور 64 حرفًا.",
+  "login_error_password_no_uppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل.",
+  "login_error_password_no_lowercase": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل.",
+  "login_error_password_no_digit": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل.",
+
+  "login_error_invalid_identifier": "البريد الإلكتروني أو اسم المستخدم غير صحيح.",
+  "login_error_invalid_password": "كلمة المرور غير صحيحة.",
+  "login_error_account_deactivated": "حسابك معطّل. يرجى التواصل مع الدعم.",
+
+  "login_error_server": "حدث خطأ من جانبنا. يرجى المحاولة مرة أخرى لاحقًا.",
+  "login_error_default": "فشل تسجيل الدخول. يرجى التحقق من بياناتك والمحاولة مرة أخرى.",
+
+  "google_sign_success_created": "تم إنشاء الحساب بنجاح. مرحبًا بك!",
+  "google_sign_success_created_with_cart": "تم إنشاء الحساب بنجاح. تم دمج سلة الضيف مع حسابك.",
+  "google_sign_success_login": "تم تسجيل الدخول بنجاح.",
+  "google_sign_success_login_with_cart": "تم تسجيل الدخول بنجاح. تم دمج سلة الضيف مع حسابك.",
+
+  "google_sign_error_id_token_required": "فشل تسجيل الدخول عبر جوجل. يرجى المحاولة مرة أخرى.",
+
+  "google_sign_error_invalid_token": "انتهت صلاحية جلسة جوجل. يرجى تسجيل الدخول مرة أخرى.",
+  "google_sign_error_account_conflict": "هذا الحساب يتعارض مع حساب موجود بالفعل. يرجى المحاولة مرة أخرى أو التواصل مع الدعم.",
+
+  "google_sign_error_server": "حدث خطأ من جانبنا. يرجى المحاولة مرة أخرى لاحقًا.",
+  "google_sign_error_default": "فشل تسجيل الدخول عبر جوجل. يرجى المحاولة مرة أخرى.",
 
   "register_title": "مرحبًا بك في Glam Qena",
   "register_subtitle": "يرجى ملء التفاصيل أدناه لإنشاء حسابك",
@@ -48,6 +119,9 @@
   "register_dob_format": "أدخل التاريخ بصيغة يوم/شهر/سنة",
   "register_dob_validation": "الرجاء إدخال تاريخ صحيح",
   "register_dob_future": "لا يمكن أن يكون تاريخ الميلاد في المستقبل",
+  "ok": "موافق",
+  "cancel": "إلغاء",
+  "register_dob_picker": "اختر تاريخ ميلادك",
 
   "register_gender_label": "الجنس",
   "register_gender_male": "ذكر",
@@ -139,6 +213,9 @@
   "verify_email_already_verified": "البريد الإلكتروني مفعل بالفعل",
   "verify_email_already_verified_subtitle": "تم تفعيل بريدك الإلكتروني بالفعل. يرجى التوجه إلى لوحة التحكم.",
 
+  "verify_email_waiting_title": "في انتظار الرابط الجديد",
+  "verify_email_waiting_subtitle": "لقد أرسلنا رابط تحقق جديد إلى بريدك الإلكتروني. افتح صندوق الوارد واضغط على الرابط لتفعيل حسابك.",
+
   "verify_email_resend_button": "إعادة إرسال رابط التحقق",
   "verify_email_retry_button": "إعادة المحاولة",
   "verify_email_go_to_dashboard": "الذهاب إلى لوحة التحكم",
@@ -151,12 +228,19 @@
   "verify_email_resend_email_required": "البريد الإلكتروني مطلوب لإعادة إرسال رابط التحقق.",
   "verify_email_resend_user_not_found": "لا يوجد حساب مرتبط بهذا البريد الإلكتروني.",
   "verify_email_resend_already_verified": "هذا البريد الإلكتروني مفعل بالفعل. يرجى التوجه إلى لوحة التحكم.",
+  "verify_email_resend_server_error": "يوجد عطل مؤقت في الخادم. يرجى المحاولة بعد قليل.",
+
+  "verify_email_retry_limit_title": "لنجرب لاحقاً",
+  "verify_email_retry_limit_subtitle": "لم نتمكن من التحقق من بريدك الإلكتروني بعد عدة محاولات. تابع إلى لوحة التحكم — يمكنك التحقق لاحقاً من صفحة ملفك الشخصي.",
+  "verify_email_verify_later_from_profile": "يمكنك التحقق من بريدك الإلكتروني في أي وقت من صفحة ملفك الشخصي.",
+
+  "verify_email_help_retry_prompt": "لم يتم التوجيه؟",
+  "verify_email_help_retry_action": "إعادة المحاولة",
+  "verify_email_help_resend_prompt": "لم يصلك البريد الإلكتروني؟",
+  "verify_email_help_resend_action": "إعادة الإرسال",
 
   "verify_email_check_inbox": "تحقق من بريدك الإلكتروني",
-  "verify_email_not_redirect": "لم يتم التوجيه؟",
-  "verify_email_retry": "إعادة المحاولة",
-  "verify_email_no_credentials": "لم يصلك البريد الإلكتروني؟",
-  "verify_email_resend": "إعادة الإرسال",
+  "verify_email_error_default": "حدث خطأ أثناء التحقق من بريدك الإلكتروني. يرجى المحاولة مرة أخرى أو طلب رابط تحقق جديد.",
 
   "logout_success": "تم تسجيل الخروج بنجاح. تم تسجيل خروجك.",
   "logout_success_with_cart": "تم تسجيل الخروج بنجاح. تم مسح سلة التسوق المؤقتة الخاصة بك.",

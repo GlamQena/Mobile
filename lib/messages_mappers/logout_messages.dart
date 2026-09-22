@@ -24,6 +24,7 @@ class LogoutMessages {
 
   static String getLocalizedMessage(String serverMessage) {
     final String key = _mapToLocalizedKey(serverMessage);
-    return key.tr();
+    final translated = key.tr();
+    return translated == key ? serverMessage : translated;
   }
 }

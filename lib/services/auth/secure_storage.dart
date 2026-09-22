@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../models/tokens.dart';
+import "package:flutter/material.dart";
+import '../../models/auth/tokens.dart';
 
 class SecureStorageService{
   static const String _accessTokenKey = "access_token";
@@ -28,6 +28,7 @@ class SecureStorageService{
     if(userId != null){
       await _storage.write(key: _userIdKey, value: userId);
     }
+    debugPrint("ℹ️ auth tokens stored successfully in the secure storage");
   }
 
   Future<TokenInfo?> getTokenInfo() async{
@@ -37,17 +38,19 @@ class SecureStorageService{
       final String? accessTokenExpiryStr = await _storage.read(key: _accessTokenExpiryKey);
       final String? refreshTokenExpiryStr = await _storage.read(key: _refreshTokenExpiryKey);
 
-      if(accessToken == null || refreshToken == null){
-        return null;
-      }
-
-      return TokenInfo(
+      TokenInfo tokenInfo = TokenInfo(
           accessToken: accessToken,
           refreshToken: refreshToken,
           accessTokenExpiry: DateTime.parse(accessTokenExpiryStr!),
           refreshTokenExpiry: DateTime.parse(refreshTokenExpiryStr!)
       );
-    }catch(ex){ //exception in parsing the expiry dates
+
+      if(tokenInfo.needsLogin){
+        return null;
+      }
+
+      return tokenInfo;
+    }catch(ex){ //exception in parsing the expiry dates or creating the tokenInfo object
       return null;
     }
   }

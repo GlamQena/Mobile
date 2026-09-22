@@ -1,13 +1,11 @@
-// services/api_client.dart
 import 'dart:convert';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import '../models/tokens.dart';
-import './secure_storage.dart';
+import '../config/app_config.dart';
+import '../models/auth/tokens.dart';
+import 'auth/secure_storage.dart';
 
 class ApiClient {
-  final String baseUrl = dotenv.env["API_URL"] ?? "http://127.0.0.1:8080";
+  final String baseUrl = AppConfig.apiUrl;
   http.Client httpClient = http.Client();
   final SecureStorageService _storage = SecureStorageService();
 
@@ -165,7 +163,7 @@ class ApiClient {
 
     // Check if access token needs refresh
     if (tokenInfo.needsRefresh) {
-      final newTokenInfo = await refreshToken(tokenInfo.refreshToken);
+      final newTokenInfo = await refreshToken(tokenInfo.refreshToken!);
       if (newTokenInfo == null) {
         return null;
       }

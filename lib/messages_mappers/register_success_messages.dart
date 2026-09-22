@@ -17,6 +17,7 @@ class RegisterSuccessMessages{
 
   static String getLocalizedSuccess(String serverMessage){
     final key = _mapToLocalizedKey(serverMessage);
-    return key.tr();
+    final translated = key.tr();
+    return translated == key ? serverMessage : translated;
   }
 }

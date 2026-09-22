@@ -1,4 +1,4 @@
-package com.example.mobile_app
+package com.glamqena.app
 
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity

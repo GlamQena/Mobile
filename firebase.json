@@ -1,0 +1,31 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "glam-qena-48684",
+          "appId": "1:869873238061:android:f0b7f5a6f66eebcac778a4",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "glam-qena-48684",
+          "configurations": {
+            "android": "1:869873238061:android:f0b7f5a6f66eebcac778a4",
+            "ios": "1:869873238061:ios:0d741696d2b99121c778a4"
+          }
+        }
+      }
+    }
+  },
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Glam Qena",
+        "supportEmail": "semonhany848@gmail.com",
+        "authorizedRedirectUris": []
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "project_info": {
+    "project_number": "869873238061",
+    "project_id": "glam-qena-48684",
+    "storage_bucket": "glam-qena-48684.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869873238061:android:f0b7f5a6f66eebcac778a4",
+        "android_client_info": {
+          "package_name": "com.glamqena.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526568342272-d3a3k4i7josdkd360drqead1vn3g0t0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYwwNUF2GUqJfubiigRAPTxHJ4cFpr_eA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

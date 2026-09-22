@@ -1,0 +1,69 @@
+diff --git a/android/build.gradle b/android/build.gradle
+index abc123..def456 100644
+--- a/android/build.gradle
++++ b/android/build.gradle
+@@ -1,36 +1,22 @@
+ group 'name.avioli.unilinks'
+-version '0.4.0'
++version '0.5.1'
+ 
+ buildscript {
+     repositories {
+         google()
+         jcenter()
+     }
+-
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:3.5.3'
++        classpath 'com.android.tools.build:gradle:7.4.2'
+     }
+ }
+ 
+ rootProject.allprojects {
+     repositories {
+         google()
+         jcenter()
+     }
+-
+-    configurations.all {
+-        resolutionStrategy {
+-            force 'com.android.tools.build:gradle:7.4.2'
+-        }
+-    }
+ }
+ 
+ apply plugin: 'com.android.library'
+ 
+ android {
+-    namespace 'com.example.uni_links'
+-
+-    compileSdkVersion 28
+-
+-    defaultConfig {
+-        minSdkVersion 16
+-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+-    }
+-    lintOptions {
+-        disable 'InvalidPackage'
+-    }
+-
+-    sourceSets {
+-        main {
+-            manifest.srcFile 'src/main/AndroidManifest.xml'
+-        }
+-    }
++    namespace 'name.avioli.unilinks'
++    compileSdkVersion 33
++    // ... rest of your android config
+ }
+diff --git a/android/src/main/AndroidManifest.xml b/android/src/main/AndroidManifest.xml
+index xyz789..uvw456 100644
+--- a/android/src/main/AndroidManifest.xml
++++ b/android/src/main/AndroidManifest.xml
+@@ -1,5 +1,4 @@
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="name.avioli.unilinks">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+     
+     <application />
+ </manifest>

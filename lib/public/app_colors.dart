@@ -1,375 +1,341 @@
 import 'package:flutter/material.dart';
 
-/// Vibrant Lumina color system — Dark + Light
+// Vibrant Lumina unified color system
+// Default theme: PINK (light, cosmetic)
+// Alternate theme: PURPLE (dark, glamorous)
 class AppColors {
   AppColors._();
 
-  // ---------- Primary (Purple) ----------
-  // USED FOR: Main Brand identity. Active sidebar items, main headers, focused input borders.
-  static const Color primary = Color(0xFFBD55ED);
-  static const Color primaryDark = Color(0xFF6B1FA0);
-  static const Color primaryLight = Color(0xFFE9C6F9);
+  // ---------- Brand Core ----------
+  static const Color purpleBrandLogo = Color(0xFF6B008A);
+  static const Color purpleDark = Color(0xFF7E00A6);
+  static const Color pinkMain = Color(0xFFFF69B4);
+  static const Color goldMain = Color(0xFFD4AF37);
 
-  // USED FOR: Gradients (Buttons/Sidebars) and deep page backgrounds.
-  static const List<Color> primaryShades = [
-    Color(0xFF3D0A5C),
-    Color(0xFF5A1187),
-    Color(0xFF7A1FB0),
-    Color(0xFF9A34D6),
-    Color(0xFFBD55ED),
-    Color(0xFFCE7BF2),
-    Color(0xFFDE9FF6),
-    Color(0xFFEEC3FA),
-    Color(0xFFF9E7FD),
-  ];
+  // ---------- Legacy Alias Mapping ----------
+  // Pink is the DEFAULT brand identity.
+  static const Color primary = pinkMain;
+  static const Color primaryDark = Color(0xFFFF479D);  // secondaryDark
+  static const Color primaryLight = Color(0xFFFF82C4); // secondaryLight
 
-  // ---------- Secondary (Pink) ----------
-  // USED FOR: Gender selection highlights, and the bright start of brand gradients.
-  static const Color secondary = Color(0xFFF472B6);
-  static const Color secondaryDark = Color(0xFF9D1D53);
-  static const Color secondaryLight = Color(0xFFFBD1E4);
+  // Purple is the ALTERNATE brand identity.
+  static const Color secondary = purpleDark;
+  static const Color secondaryDark = Color(0xFF6B008A); // purpleBrandLogo
+  static const Color secondaryLight = Color(0xFF9200C2);
 
-  // USED FOR: Background glows and subtle light shades.
-  static const List<Color> secondaryShades = [
-    Color(0xFF5C0A2A),
-    Color(0xFF87113D),
-    Color(0xFFB01754),
-    Color(0xFFD63472),
-    Color(0xFFF472B6),
-    Color(0xFFF690C6),
-    Color(0xFFF8AED6),
-    Color(0xFFFACCE6),
-    Color(0xFFFDEAF3),
-  ];
-
-  // ---------- Tertiary (Deep Violet) ----------
-  // USED FOR: Alternative secondary accents and deep contrast elements.
   static const Color tertiary = Color(0xFF7C3AED);
-  static const Color tertiaryDark = Color(0xFF33116B);
-  static const Color tertiaryLight = Color(0xFFD9C6FA);
 
-  static const List<Color> tertiaryShades = [
-    Color(0xFF1E0A4D),
-    Color(0xFF2E1177),
-    Color(0xFF4517A6),
-    Color(0xFF5F26C8),
-    Color(0xFF7C3AED),
-    Color(0xFF9560F0),
-    Color(0xFFAF86F4),
-    Color(0xFFCAADF8),
-    Color(0xFFE6D6FC),
+  // ---------- Shades ----------
+  static const List<Color> purpleShades = [
+    Color(0xFF07040F),
+    Color(0xFF0E0516),
+    Color(0xFF180824),
+    Color(0xFF1C0A2B),
+    Color(0xFF2E1065),
+    Color(0xFF7E00A6),
+    Color(0xFF9200C2),
+    Color(0xFFCBAEDC),
+    Color(0xFFF8F7FA),
   ];
 
-  // ---------- Neutral (Gray) ----------
-  // USED FOR: Standard borders, disabled states, and background surfaces.
-  static const Color neutral = Color(0xFF7E747F);
-  static const Color neutralDark = Color(0xFF1A171B);
-  static const Color neutralLight = Color(0xFFE6E3E6);
-
-  // USED FOR: Deepest page backgrounds and heavy contrast areas.
-  static const List<Color> neutralShades = [
-    Color(0xFF141214),
-    Color(0xFF2A262B),
-    Color(0xFF433D44),
-    Color(0xFF5E5760),
-    Color(0xFF7E747F),
-    Color(0xFF9A929E),
-    Color(0xFFB8B2BB),
-    Color(0xFFD5D1D7),
-    Color(0xFFEDEBEE),
+  static const List<Color> pinkShades = [
+    Color(0xFFFFF8FB),
+    Color(0xFFFDF0F6),
+    Color(0xFFFBE2EF),
+    Color(0xFFF8E4EE),
+    Color(0xFFFF69B4),
+    Color(0xFFFF479D),
+    Color(0xFFFF82C4),
+    Color(0xFF68487A),
+    Color(0xFF251030),
   ];
 
-  // ---------- Semantic (shared across modes) ----------
-  // USED FOR: Toast notifications, validation error texts, and input error borders.
-  static const Color error = Color(0xFFF87171);
-  static const Color success = Color(0xFF4ADE80);
-  static const Color warning = Color(0xFFFBBF24);
+  // ---------- Status Colors ----------
+  static const Color success = Color(0xFF22C55E);
+  static const Color successSubtle = Color(0x1A22C55E);
+  static const Color error = Color(0xFFEF4444);
+  static const Color errorSubtle = Color(0x1AEF4444);
+  static const Color warning = Color(0xFFD4AF37);
+  static const Color warningSubtle = Color(0x26D4AF37);
+  static const Color neutral = Color(0xFF79578C);
 
-  // ---------- Gradients ----------
-  // USED FOR: Main form submit buttons, and the active background state in sidebars.
-  static const List<Color> brandGradient = [primary, secondary]; //light buttons gradient
+  /// Default brand gradient — PINK.
+  /// Use this for active sidebar tiles, primary CTAs, badges, etc.
+  static const List<Color> brandGradient = [
+    Color(0xFFFF69B4), // pinkMain      — mid brand
+    Color(0xFFff8da1)
+  ];
+
+  /// Default hero gradient — PINK over light surfaces.
+  /// Use this for hero banners / headers on light backgrounds.
   static const List<Color> heroGradient = [
-    Color(0xFF3D0A5C),
-    Color(0xFF8E1FA0),
-  ]; //dark buttons gradient
+    Color(0xFFFF69B4), // pinkMain
+    Color(0xFFFF82C4), // secondaryLight
+    Color(0xFFFBE2EF), // pinkShades[2]
+    Color(0xFFFFF8FB), // background
+  ];
 
-// ---------- Background Glows ----------
+  /// Purple brand gradient — luminous lavender → deep violet.
+  static const List<Color> purpleBrandGradient = [
+    Color(0xFF7E00A6), // deep violet (brand anchor)
+    Color(0xFF5A0080), // deeper violet (bottom-right depth)
+  ];
 
-  /// Dark mode background gradient (Linear works great here)
-  static final Gradient darkBackgroundGradient = LinearGradient(
+  /// Purple hero gradient — deep violet → near-black plum.
+  /// Use for hero banners / headers on dark backgrounds.
+  static const List<Color> purpleHeroGradient = [
+    Color(0xFF7E00A6), // deep violet
+    Color(0xFF1C0A2B), // near-black plum for depth
+  ];
+
+  static const List<Color> purpleSidebarActiveGradient = [
+    Color(0xFF9200C2), // rich violet — top-left lift
+    Color(0xFF7E00A6), // deep royal purple — brand anchor
+  ];
+
+  // ---------- Warm sidebar active gradient (pink mode) ----------
+  static const List<Color> pinkSidebarActiveGradient = [
+    Color(0xFFFF69B4), // pinkMain — brand anchor
+    Color(0xFFFF479D), // deeper rose — bottom-right depth
+  ];
+
+  // ================================================================
+  // BACKGROUND GRADIENTS
+  // ================================================================
+
+  /// Default background gradient — PINK.
+  static final Gradient pinkBackgroundGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomCenter,
-    colors: [
-      primaryShades[1], // Deep purple top-right accent
-      neutralShades[0], // Base dark center
-      primaryShades[0], // Subtle dark purple bottom accent
+    colors: const [
+      Color(0xFFFDF0F6),
+      Color(0xFFFFF8FB),
+      Color(0xFFF8E4EE),
     ],
     stops: const [0.0, 0.5, 1.0],
   );
 
-  /// Light mode background gradient (Mirroring dark mode's spread technique)
-  static final Gradient lightBackgroundGradient = LinearGradient(
+  /// Alternate background gradient — PURPLE.
+  static final Gradient purpleBackgroundGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomCenter,
-    colors: [
-      secondaryShades[8], // Color(0xFFFDEAF3) - Soft pink tint top-right
-      AppColorsLight.background, // Base clean white center (0xFFFFFFFF)
-      primaryShades[8],   // Color(0xFFF9E7FD) - Soft purple tint bottom
+    colors: const [
+      Color(0xFF0E0516),
+      Color(0xFF07040F),
+      Color(0xFF1C0A2B),
     ],
     stops: const [0.0, 0.5, 1.0],
   );
 }
 
-/// Dark-mode-only surface & text tokens
-class AppColorsDark {
-  AppColorsDark._();
+// ================================================================
+// PURPLE THEME — Dark, glamorous, nocturnal
+// ================================================================
+class PurpleTheme {
+  PurpleTheme._();
 
-  // USED FOR: Main page background (Base dark color).
-  static const Color background = Color(0xFF121014);
+  static const Color primaryMain   = AppColors.purpleDark;              // #7E00A6
+  static const Color primarySubtle = Color(0x267E00A6);                 // rgba(126,0,166,0.15)
+  static const Color borderProminent = Color(0x407E00A6);               // rgba(126,0,166,0.25)
+  static const Color errorSubtle = Color(0x1AEF4444);                   // rgba(239,68,68,0.10)
 
-  // USED FOR: Main Sidebar Background. Slightly lighter than the page to show separation.
-  static const Color sidebarBackground = Color(0xFF1A181D);
+  // Surface Colors
+  static const Color background = Color(0xFF07040F);
+  static const Color sidebarBackground = Color(0xFF0E0516);
+  static const Color surface = Color(0xFF1C0A2B);
+  static const Color surfaceVariant = Color(0xFF0E0516);
+  static const Color border = Color(0x407E00A6);
 
-  // USED FOR: Form container cards, dialogs, and bottom sheets.
-  static const Color surface = Color(0xFF1C1A1F);
+  // Navigation
+  static const Color navbarBackground = Color(0xD907040F);
+  static const Color navbarBorder = Color(0x267E00A6);
 
-  // USED FOR: Background inside Text Input fields and Search bars.
-  static const Color surfaceVariant = Color(0xFF2A242D);
+  // Typography
+  static const Color textPrimary = Color(0xFFF8F7FA);
+  static const Color textSecondary = Color(0xFFCBAEDC);
+  static const Color textMuted = Color(0xFF79578C);
+  static const Color textPlaceholder = Color(0xFF452857);
 
-  // USED FOR: Subtle borders around Text Input fields (Outlines).
-  static const Color border = Color(0xFF3E3643);
+  // Input
+  static const Color inputBackground = Color(0xFF0E0516);
+  static const Color inputFocusBackground = Color(0xFF180824);
 
-  // USED FOR: Main headers, top sidebar links, and important navigation text.
-  static const Color textPrimary = Color(0xFFF5F3F6);
+  // Avatar
+  static const Color avatarBg = Color(0xFF2E1065);
+  static const Color avatarFg = Color(0xFFF472B6);
 
-  // USED FOR: Placeholder text, input prefix/suffix icons, and secondary labels.
-  static const Color textSecondary = Color(0xFFB8B2BB);
+  // Status
+  static const Color success = AppColors.success;
+  static const Color error = AppColors.error;
+  static const Color link = AppColors.purpleDark; // purple link in dark mode
 
-  // USED FOR: Muted/Sidebar bottom links (Profile, Orders, Wishlist, Logout) and disabled UI elements.
-  static const Color textMuted = Color(0xFF6E6771);
-
-  // USED FOR: Red asterisk (*), error message text, and invalid input borders.
-  static const Color error = Color(0xFFF87171);
-
-  // USED FOR: "Forgot Password?" links, and clickable navigational text.
-  static const Color link = Color(0xFFF690C6);
-
-  // USED FOR: Active Sidebar Item background. Uses the Brand Gradient.
   static const LinearGradient sidebarActiveGradient = LinearGradient(
-    colors: AppColors.heroGradient, //or hero gradient
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
+    colors: AppColors.purpleSidebarActiveGradient,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient buttonGradient = LinearGradient(
+    colors: AppColors.purpleBrandGradient,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 }
 
-/// Light-mode-only surface & text tokens
-class AppColorsLight {
-  AppColorsLight._();
+// ================================================================
+// PINK THEME — Light, cosmetic, daytime (DEFAULT)
+// ================================================================
+class PinkTheme {
+  PinkTheme._();
 
-  // USED FOR: Main page background (Base white).
-  static const Color background = Color(0xFFFFFFFF);
+  static const Color primaryMain   = AppColors.pinkMain;                // #FF69B4
+  static const Color primarySubtle = Color(0x1AFF69B4);                 // rgba(255,105,180,0.10)
+  static const Color borderProminent = Color(0x40FF69B4);               // rgba(255,105,180,0.25)
+  static const Color errorSubtle = Color(0x1AEF4444);
 
-  // USED FOR: Main Sidebar Background. Same as the page background.
+  // Surface Colors
+  static const Color background = Color(0xFFFFF8FB);
   static const Color sidebarBackground = Color(0xFFFFFFFF);
-
-  // USED FOR: Form container cards, dialogs, and bottom sheets.
   static const Color surface = Color(0xFFFFFFFF);
+  static const Color surfaceVariant = Color(0xFFFDF0F6);
+  static const Color border = Color(0x40FF69B4);
 
-  // USED FOR: Background inside Text Input fields and Search bars.
-  static const Color surfaceVariant = Color(0xFFFDF9FB);
+  // Navigation
+  static const Color navbarBackground = Color(0xE6FFF8FB);
+  static const Color navbarBorder = Color(0x1EFF69B4);
 
-  // USED FOR: Subtle borders around Text Input fields (Outlines).
-  static const Color border = Color(0xFFF0E6EE);
+  // Typography
+  static const Color textPrimary = Color(0xFF251030);
+  static const Color textSecondary = Color(0xFF68487A);
+  static const Color textMuted = Color(0xFFA084B3);
+  static const Color textPlaceholder = Color(0xFFD1BFDD);
 
-  // USED FOR: Main headers, top sidebar links, and important navigation text.
-  static const Color textPrimary = Color(0xFF2A1F30);
+  // Input
+  static const Color inputBackground = Color(0xFFFDF0F6);
+  static const Color inputFocusBackground = Color(0xFFFBE2EF);
 
-  // USED FOR: Placeholder text, input prefix/suffix icons, and secondary labels.
-  static const Color textSecondary = Color(0xFF8A7F91);
+  // Avatar
+  static const Color avatarBg = Color(0x1FEC4899);
+  static const Color avatarFg = Color(0xFFDB2777);
 
-  // USED FOR: Muted/Sidebar bottom links (Settings, About, Logout) and disabled UI elements.
-  static const Color textMuted = Color(0xFFC9C1CE);
+  // Status
+  static const Color success = AppColors.success;
+  static const Color error = AppColors.error;
+  static const Color link = AppColors.pinkMain;
 
-  // USED FOR: Red asterisk (*), error message text, and invalid input borders.
-  static const Color error = Color(0xFFE85D75);
-
-  // USED FOR: "Forgot Password?" links, and clickable navigational text.
-  static const Color link = Color(0xFFC74292);
-
-  // USED FOR: Active Sidebar Item background. Uses the Brand Gradient.
   static const LinearGradient sidebarActiveGradient = LinearGradient(
+    colors: AppColors.pinkSidebarActiveGradient,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient buttonGradient = LinearGradient(
     colors: AppColors.brandGradient,
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 }
 
-// ----- THEME BUILDER FUNCTIONS -----
+// ==========================================
+// FLUTTER THEME BUILDERS
+// ==========================================
 
-ThemeData buildVibrantLuminaDarkTheme() {
+ThemeData buildPurpleTheme() {
   final base = ThemeData.dark(useMaterial3: true);
   return base.copyWith(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColorsDark.background,
+    scaffoldBackgroundColor: PurpleTheme.background,
     colorScheme: const ColorScheme.dark(
-      primary: AppColors.primary,
-      secondary: AppColors.secondary,
-      tertiary: AppColors.tertiary,
-      surface: AppColorsDark.surface,
-      surfaceContainerHighest: AppColorsDark.surfaceVariant,
-      error: AppColors.error,
+      primary: AppColors.purpleDark,
+      secondary: AppColors.pinkMain,
+      tertiary: AppColors.goldMain,
+      surface: PurpleTheme.surface,
+      surfaceContainerHighest: PurpleTheme.surfaceVariant,
+      error: PurpleTheme.error,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
-      onSurface: AppColorsDark.textPrimary,
-      outline: AppColorsDark.border,
+      onSurface: PurpleTheme.textPrimary,
+      outline: PurpleTheme.border,
     ),
     textTheme: base.textTheme.apply(
-      bodyColor: AppColorsDark.textPrimary,
-      displayColor: AppColorsDark.textPrimary,
+      bodyColor: PurpleTheme.textPrimary,
+      displayColor: PurpleTheme.textPrimary,
       fontFamily: 'Hanken Grotesk',
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColorsDark.surfaceVariant,
-      hintStyle: const TextStyle(color: AppColorsDark.textSecondary),
-      labelStyle: const TextStyle(color: AppColorsDark.textSecondary),
-
+      fillColor: PurpleTheme.inputBackground,
+      hintStyle: const TextStyle(color: PurpleTheme.textMuted),
+      labelStyle: const TextStyle(color: PurpleTheme.textSecondary),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColorsDark.border,
-          width: 0.7,
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: PurpleTheme.border, width: 0.8),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColorsDark.border,
-          width: 0.7,
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: PurpleTheme.border, width: 0.8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColors.primary,
-          width: 1.5,
-        ),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColors.error,
-          width: 0.7,
-        ),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColors.error,
-          width: 0.7,
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: AppColors.purpleDark, width: 1.5),
       ),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        elevation: 0,
-        shadowColor: Colors.transparent,
-      ),
-    ),
+    cardColor: PurpleTheme.surface,
+    dividerColor: PurpleTheme.border,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+      backgroundColor: PurpleTheme.surface,
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
-      foregroundColor: AppColorsDark.textPrimary,
     ),
-    cardColor: AppColorsDark.surface,
-    dividerColor: AppColorsDark.border,
   );
 }
 
-ThemeData buildVibrantLuminaLightTheme() {
+ThemeData buildPinkTheme() {
   final base = ThemeData.light(useMaterial3: true);
   return base.copyWith(
     brightness: Brightness.light,
-    scaffoldBackgroundColor: AppColorsLight.background,
+    scaffoldBackgroundColor: PinkTheme.background,
     colorScheme: const ColorScheme.light(
-      primary: AppColors.secondary,
-      secondary: AppColors.primary,
-      tertiary: AppColors.tertiary,
-      surface: AppColorsLight.surface,
-      surfaceContainerHighest: AppColorsLight.surfaceVariant,
-      error: AppColorsLight.error,
+      primary: AppColors.pinkMain,
+      secondary: AppColors.purpleDark,
+      tertiary: AppColors.goldMain,
+      surface: PinkTheme.surface,
+      surfaceContainerHighest: PinkTheme.surfaceVariant,
+      error: PinkTheme.error,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
-      onSurface: AppColorsLight.textPrimary,
-      outline: AppColorsLight.border,
+      onSurface: PinkTheme.textPrimary,
+      outline: PinkTheme.border,
     ),
     textTheme: base.textTheme.apply(
-      bodyColor: AppColorsLight.textPrimary,
-      displayColor: AppColorsLight.textPrimary,
+      bodyColor: PinkTheme.textPrimary,
+      displayColor: PinkTheme.textPrimary,
       fontFamily: 'Hanken Grotesk',
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColorsLight.surfaceVariant,
-      hintStyle: const TextStyle(color: AppColorsLight.textSecondary),
-      labelStyle: const TextStyle(color: AppColorsLight.textSecondary),
-
+      fillColor: PinkTheme.inputBackground,
+      hintStyle: const TextStyle(color: PinkTheme.textMuted),
+      labelStyle: const TextStyle(color: PinkTheme.textSecondary),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColorsLight.border,
-          width: 0.7,
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: PinkTheme.border, width: 0.8),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColorsLight.border,
-          width: 0.7,
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: PinkTheme.border, width: 0.8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColors.primary,
-          width: 1.5,
-        ),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColorsLight.error,
-          width: 0.7,
-        ),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: AppColorsLight.error,
-          width: 0.7,
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: AppColors.pinkMain, width: 1.5),
       ),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        elevation: 0,
-        shadowColor: Colors.transparent,
-      ),
-    ),
+    cardColor: PinkTheme.surface,
+    dividerColor: PinkTheme.border,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+      backgroundColor: PinkTheme.surface,
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
-      foregroundColor: AppColorsLight.textPrimary,
     ),
-    cardColor: AppColorsLight.surface,
-    dividerColor: AppColorsLight.border,
   );
 }
